@@ -101,7 +101,7 @@ _Below are steps to setup your local dev environment._
 
 ## Roadmap
 
-- [] Main app landing page - Introduces the online store and showcases featured products
+- [ ] Main app landing page - Introduces the online store and showcases featured products
 - [ ] Main navigation - Navbar to switch between different pages within the app
 - [ ] Product list page - Display a list of items with image, title, prices and brief descriptions
 - [ ] Product detail page - Shows detailed info about a specific product
