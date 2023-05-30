@@ -11,6 +11,8 @@ COPY ./package.json ./yarn.lock ./
 # Install dependencies
 RUN yarn install
 
+RUN npx husky install
+
 # Bundle app sources
 COPY . .
 
