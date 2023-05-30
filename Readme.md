@@ -71,12 +71,17 @@ Steps to setup your local dev environment.
 
 ### Prerequisites
 
-You can install yarn via the command below or follow platform specific installation steps <a href="https://yarnpkg.com/getting-started/install">here</a>
+Project uses yarn as default package manager
+
+You can install yarn via the command below or follow platform specific installation steps <a href="https://yarnpkg.com/getting-started/install" target="_blank">here</a>
 
 - yarn
+
   ```sh
   npm install --global yarn
   ```
+
+- If using docker ensure you have docker installed or follow the installation guide <a href="https://docs.docker.com/get-docker/" target="_blank">here</a>
 
 ### Installation
 
@@ -93,6 +98,21 @@ _Below are steps to setup your local dev environment._
 3. Run local dev server
    ```sh
    yarn dev
+   ```
+
+_If instead you prefer using docker:_
+
+1. Clone the repo
+   ```sh
+   git clone https://github.com/conceptacherono/mtumba_bay.git
+   ```
+2. Install NPM packages
+   ```sh
+   yarn
+   ```
+3. run docker using compose to setup and run project
+   ```sh
+   docker compose up
    ```
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
