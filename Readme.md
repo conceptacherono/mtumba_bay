@@ -91,11 +91,15 @@ _Below are steps to setup your local dev environment._
    ```sh
    git clone https://github.com/conceptacherono/mtumba_bay.git
    ```
-2. Install NPM packages
+2. CD into client
+   ```sh
+   cd client
+   ```
+3. Install NPM packages
    ```sh
    yarn
    ```
-3. Run local dev server
+4. Run local dev server
    ```sh
    yarn dev
    ```
@@ -106,9 +110,9 @@ _If instead you prefer using docker:_
    ```sh
    git clone https://github.com/conceptacherono/mtumba_bay.git
    ```
-2. Install NPM packages
+2. CD into client
    ```sh
-   yarn
+   cd client
    ```
 3. run docker using compose to setup and run project
    ```sh
