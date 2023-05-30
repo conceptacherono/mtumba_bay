@@ -6,7 +6,7 @@ FROM node:18-alpine
 WORKDIR /mtumba_bay
 
 # Copy dependency files
-COPY package.json yarn.lock ./
+COPY ./client/package.json ./client/yarn.lock ./
 
 # Install dependencies
 RUN yarn install
@@ -15,7 +15,7 @@ RUN yarn install
 COPY . .
 
 # Make port accessible outside the container
-EXPOSE 3000
+EXPOSE 5173
 
 # Command to run when container is ready
 CMD [ "yarn", "dev" ]
