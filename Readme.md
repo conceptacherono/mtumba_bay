@@ -6,7 +6,7 @@
 <br />
 <div align="center">
 
-  <h3 align="center">Mtumba_Bay</h3>
+  <h2 align="center">Mtumba_Bay</h2>
 
   <p align="center">
     Project description
@@ -103,7 +103,7 @@ _Below are steps to setup your local dev environment._
 
 - [] Main app landing page - Introduces the online store and showcases featured products
 - [ ] Main navigation - Navbar to switch between different pages within the app
-- [] Product list page - Display a list of items with image, title, prices and brief descriptions
+- [ ] Product list page - Display a list of items with image, title, prices and brief descriptions
 - [ ] Product detail page - Shows detailed info about a specific product
 - [ ] Add a cart - For users to manage their shopping items
 - [ ] Implement Checkout - Handles payment and entry of shipping info
@@ -117,7 +117,12 @@ _Below are steps to setup your local dev environment._
 ## Contributing
 
 To contribute:
-**Note** -- checkout `commitlint.config.cjs` file for valid commit message prefixes
+<br />
+**Note**
+
+- Please check `commitlint.config.cjs` file for valid commit message prefixes
+- Running git commit will lint your project. Commit messages must be valid
+- Running git push will initialize the build process and only a successful build will be pushed
 
 1. Fork the Project or clone by running
 
