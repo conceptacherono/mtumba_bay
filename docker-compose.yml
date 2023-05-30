@@ -1,0 +1,16 @@
+version: "3.8"
+services:
+  # Web service -- runs the web application front end
+  web:
+    # name alias
+    image: mtumba_bay
+    # build within the current directory
+    build:
+      context: .
+    command: yarn dev
+    volumes:
+      # Maps project directory "./" to working directory
+      # inside the container
+      - .:/mtumba_bay
+    ports:
+      - 3000:3000
