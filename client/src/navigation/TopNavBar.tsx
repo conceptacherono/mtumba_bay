@@ -8,6 +8,7 @@ import {
 } from "@material-tailwind/react";
 import { navLinks } from "../utils";
 import Logo from "/logo.jpg";
+import { Link } from "react-router-dom";
 
 export default function TopNavBar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -29,9 +30,9 @@ export default function TopNavBar() {
           className="p-1 font-normal"
           key={link.title}
         >
-          <a href="#" className="flex items-center">
+          <Link to={link.href} className="flex items-center">
             {link.title}
-          </a>
+          </Link>
         </Typography>
       ))}
     </ul>
@@ -41,16 +42,12 @@ export default function TopNavBar() {
     <>
       <Navbar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 backdrop-filter backdrop-blur ">
         <div className="flex items-center justify-between text-blue-gray-900">
-          <div className="flex items-center gap-2">
+          <Link to={"/"} className="flex items-center gap-2">
             <img src={Logo} alt="app logo" className="h-12 rounded-full" />
-            <Typography
-              as="a"
-              href="#"
-              className="mr-4 cursor-pointer py-1.5 font-stylish font-semibold text-lg"
-            >
+            <Typography className="mr-4 cursor-pointer py-1.5 font-stylish font-semibold text-lg">
               Mtumba Bay
             </Typography>
-          </div>
+          </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
             <Button

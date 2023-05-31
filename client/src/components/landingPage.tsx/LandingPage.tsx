@@ -1,6 +1,6 @@
 const LandingPage = () => {
   return (
-    <div className="mx-auto max-w-screen-xl py-12 min-h-screen">
+    <div>
       <h2>Application&apos;s landing page</h2>
     </div>
   );
