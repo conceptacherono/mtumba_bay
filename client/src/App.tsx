@@ -1,11 +1,12 @@
+import { Outlet } from "react-router-dom";
+import { AppLayoutWrapper } from "./layouts";
+
 function App() {
   return (
     <>
-      <div>
-        <h1 className="text-3xl font-bold underline text-red-400">
-          Some conten
-        </h1>
-      </div>
+      <AppLayoutWrapper>
+        <Outlet />
+      </AppLayoutWrapper>
     </>
   );
 }
