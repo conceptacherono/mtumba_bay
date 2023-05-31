@@ -12,6 +12,7 @@ services:
       # Maps project directory "./client" to working directory
       # inside the container
       - .:/usr/src/mtumba_bay
-      - /usr/src/app/node_modules
     ports:
-      - 5173:5173
+      - 3000:3000
+    expose:
+      - 3000

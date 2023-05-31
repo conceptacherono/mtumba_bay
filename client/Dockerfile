@@ -11,13 +11,11 @@ COPY ./package.json ./yarn.lock ./
 # Install dependencies
 RUN yarn install
 
-RUN npx husky install
-
 # Bundle app sources
 COPY . .
 
 # Make port accessible outside the container
-EXPOSE 5173
+EXPOSE 3000
 
 # Command to run when container is ready
 CMD [ "yarn", "dev" ]
