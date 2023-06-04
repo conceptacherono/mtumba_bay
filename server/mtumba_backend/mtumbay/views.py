@@ -4,11 +4,26 @@ from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
 from .serializers import UserSerializer, UserProfileSerializer
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-class UserRegistrationView(generics.CreateAPIView):
-    serializer_class = UserSerializer
+class UserRegistrationView(APIView):
+    authentication_classes = []
+    permission_classes = []
 
-class UserLogoutView(views.APIView):
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            token = Token.objects.create(user=user)
+            return Response({'token': token.key})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class UserLogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -16,9 +31,10 @@ class UserLogoutView(views.APIView):
         request.user.auth_token.delete()
         return Response(status=status.HTTP_200_OK)   
     
-class UserProfileView(generics.RetrieveAPIView):
-    serializer_class = UserProfileSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class UserProfileView(APIView):
+     authentication_classes = [TokenAuthentication]
+     permission_classes = [IsAuthenticated]
 
-    def get_object(self):
-        return self.request.user    
+     def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)  
