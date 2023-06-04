@@ -1,7 +1,10 @@
 from rest_framework import serializers
-from .models import Product
 
-class ProductSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Product
-        fields = '__all__'
+class ProductImageSerializer(serializers.Serializer):
+    image = serializers.ImageField()
+
+class UserProfilePictureSerializer(serializers.Serializer):
+    picture = serializers.ImageField()
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()
