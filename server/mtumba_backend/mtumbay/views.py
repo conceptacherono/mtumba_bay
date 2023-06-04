@@ -1,44 +1,64 @@
 from django.shortcuts import render
-from rest_framework.views import APIView
-from rest_framework.response import Response
 from rest_framework import status
-from .serializers import ReviewSerializer
-from .models import Review
+from rest_framework.response import Response
+from rest_framework.decorators import api_view
+from .serializers import OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer
 
-class AddReview(APIView):
-    def post(self, request, product_id):
-        serializer = ReviewSerializer(data=request.data)
-        if serializer.is_valid():
-            # Save the review/rating for the product
-            serializer.save(product_id=product_id)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+@api_view(['POST'])
+def create_order(request):
+    serializer = OrderSerializer(data=request.data)
+    if serializer.is_valid():
+        # Perform order creation logic here
+        order_id = "67890"  # Generated order ID
+        response_data = {
+            "order_id": order_id,
+            "status": "created",
+            "message": "Order created successfully."
+        }
+        return Response(response_data, status=status.HTTP_201_CREATED)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class RetrieveReviews(APIView):
-    def get(self, request, product_id):
-        reviews = Review.objects.filter(product_id=product_id)
-        serializer = ReviewSerializer(reviews, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+@api_view(['GET'])
+def order_details(request, order_id):
+    # Retrieve order details for the given order ID
+    # Perform logic to fetch order details
+    order = {
+        "order_id": order_id,
+        # Other order details
+    }
+    serializer = OrderDetailsSerializer(order)
+    return Response(serializer.data)
 
-class UpdateReview(APIView):
-    def put(self, request, product_id, review_id):
-        try:
-            review = Review.objects.get(id=review_id, product_id=product_id)
-        except Review.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+@api_view(['GET'])
+def order_history(request, user_id):
+    # Retrieve order history for the given user ID
+    # Perform logic to fetch order history
+    orders = [
+        {
+            "order_id": "123",
+            # Other order details
+        },
+        {
+            "order_id": "456",
+            # Other order details
+        },
+    ]
+    serializer = OrderHistorySerializer(orders, many=True)
+    return Response(serializer.data)
 
-        serializer = ReviewSerializer(review, data=request.data)
-        if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    
-class DeleteReview(APIView):
-    def delete(self, request, product_id, review_id):
-        try:
-            review = Review.objects.get(id=review_id, product_id=product_id)
-        except Review.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+@api_view(['POST'])
+def cancel_order(request, order_id):
+    # Logic to cancel the order with the given order ID
+    # Perform cancellation logic
+    return Response({"message": "Order canceled successfully."})
 
-        review.delete()
-        return Response(status=status.HTTP_204_NO_CONTENT)     
+@api_view(['GET'])
+def order_tracking(request, order_id):
+    # Retrieve tracking information for the given order ID
+    # Perform logic to fetch tracking information
+    tracking_info = {
+        "order_id": order_id,
+        # Other tracking information
+    }
+    serializer = OrderTrackingSerializer(tracking_info)
+    return Response(serializer.data)

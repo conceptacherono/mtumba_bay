@@ -1,9 +1,10 @@
 from django.urls import path
-from .views import AddReview, RetrieveReviews, UpdateReview, DeleteReview
+from .views import create_order, order_details, order_history, cancel_order, order_tracking
 
 urlpatterns = [
-    path('api/products/<int:product_id>/reviews', AddReview.as_view(), name='add_review'),
-    path('api/products/<int:product_id>/reviews', RetrieveReviews.as_view(), name='retrieve_reviews'),
-    path('api/products/<int:product_id>/reviews/<int:review_id>', UpdateReview.as_view(), name='update_review'),
-    path('api/products/<int:product_id>/reviews/<int:review_id>', DeleteReview.as_view(), name='delete_review'),
+    path('api/orders/', create_order, name='create_order'),
+    path('api/orders/<str:order_id>/', order_details, name='order_details'),
+    path('api/users/<str:user_id>/orders/', order_history, name='order_history'),
+    path('api/orders/<str:order_id>/cancel/', cancel_order, name='cancel_order'),
+    path('api/orders/<str:order_id>/tracking/', order_tracking, name='order_tracking'),
 ]
