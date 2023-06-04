@@ -1,3 +1,7 @@
 from django.db import models
 
-# Create your models here.
+class FileModel(models.Model):
+    file = models.FileField(upload_to='files/')
+
+    def filename(self):
+        return self.file.name.split('/')[-1]
