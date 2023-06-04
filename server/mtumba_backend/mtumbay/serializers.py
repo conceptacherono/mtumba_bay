@@ -1,18 +1,20 @@
 from rest_framework import serializers
+from django.contrib.auth.models import User
+from rest_framework import serializers
+from django.contrib.auth.models import User
 
-class AddToCartSerializer(serializers.Serializer):
-    user_id = serializers.CharField()
-    product_id = serializers.CharField()
-    quantity = serializers.IntegerField()
+class UserSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'password', 'email']
+        extra_kwargs = {'password': {'write_only': True}}
 
-class UpdateCartSerializer(serializers.Serializer):
-    user_id = serializers.CharField()
-    product_id = serializers.CharField()
-    quantity = serializers.IntegerField()
+    def create(self, validated_data):
+        user = User.objects.create_user(**validated_data)
+        return user
+    
+class UserProfileSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = User
+        fields = ['username', 'email']    
 
-class RemoveFromCartSerializer(serializers.Serializer):
-    user_id = serializers.CharField()
-    product_id = serializers.CharField()
-
-class CartCheckoutSerializer(serializers.Serializer):
-    user_id = serializers.CharField()    

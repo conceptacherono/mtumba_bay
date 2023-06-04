@@ -1,66 +1,40 @@
 from django.shortcuts import render
+from rest_framework import generics, views, status, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-from .serializers import AddToCartSerializer, CartCheckoutSerializer, RemoveFromCartSerializer, UpdateCartSerializer
+from rest_framework.permissions import IsAuthenticated
+from .serializers import UserSerializer, UserProfileSerializer
+from rest_framework.authtoken.models import Token
+from rest_framework.authentication import TokenAuthentication
+from rest_framework.permissions import IsAuthenticated
+from rest_framework.response import Response
+from rest_framework.views import APIView
 
-@api_view(['POST'])
-def add_to_cart(request):
-    serializer = AddToCartSerializer(data=request.data)
-    if serializer.is_valid():
-        # Perform necessary actions to add the product to the cart
-        # You can access the validated data using serializer.validated_data
-        user_id = serializer.validated_data['user_id']
-        product_id = serializer.validated_data['product_id']
-        quantity = serializer.validated_data['quantity']
-        
-        # Add the product to the cart logic here
-        
-        return Response({"message": "Product added to cart successfully"})
-    else:
-        return Response(serializer.errors, status=400)
+class UserRegistrationView(APIView):
+    authentication_classes = []
+    permission_classes = []
 
-@api_view(['PUT'])
-def update_cart(request):
-    serializer = UpdateCartSerializer(data=request.data)
-    if serializer.is_valid():
-        # Perform necessary actions to update the cart
-        # You can access the validated data using serializer.validated_data
-        user_id = serializer.validated_data['user_id']
-        product_id = serializer.validated_data['product_id']
-        quantity = serializer.validated_data['quantity']
-        
-        # Update the cart logic here
-        
-        return Response({"message": "Cart updated successfully"})
-    else:
-        return Response(serializer.errors, status=400)
+    def post(self, request):
+        serializer = UserSerializer(data=request.data)
+        if serializer.is_valid():
+            user = serializer.save()
+            token = Token.objects.create(user=user)
+            return Response({'token': token.key})
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+class UserLogoutView(APIView):
+    authentication_classes = [TokenAuthentication]
+    permission_classes = [IsAuthenticated]
 
-@api_view(['DELETE'])
-def remove_from_cart(request):
-    serializer = RemoveFromCartSerializer(data=request.data)
-    if serializer.is_valid():
-        # Perform necessary actions to remove the product from the cart
-        # You can access the validated data using serializer.validated_data
-        user_id = serializer.validated_data['user_id']
-        product_id = serializer.validated_data['product_id']
-        
-        # Remove the product from the cart logic here
-        
-        return Response({"message": "Product removed from cart successfully"})
-    else:
-        return Response(serializer.errors, status=400)
+    def post(self, request):
+        # Perform any additional logout logic if needed
+        request.user.auth_token.delete()
+        return Response(status=status.HTTP_200_OK)   
     
-@api_view(['POST'])
-def cart_checkout(request):
-    serializer = CartCheckoutSerializer(data=request.data)
-    if serializer.is_valid():
-        # Perform necessary actions for cart checkout
-        # You can access the validated data using serializer.validated_data
-        user_id = serializer.validated_data['user_id']
-        
-        # Cart checkout logic here
-        
-        return Response({"message": "Checkout successful", "order_id": "order789"})
-    else:
-        return Response(serializer.errors, status=400)    
+class UserProfileView(APIView):
+     authentication_classes = [TokenAuthentication]
+     permission_classes = [IsAuthenticated]
+
+     def get(self, request):
+        serializer = UserSerializer(request.user)
+        return Response(serializer.data)  
