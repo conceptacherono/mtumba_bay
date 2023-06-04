@@ -1,10 +1,9 @@
 from django.urls import path
-from .views import create_order, order_details, order_history, cancel_order, order_tracking
+from .views import add_to_cart, update_cart, remove_from_cart, cart_checkout
 
 urlpatterns = [
-    path('api/orders/', create_order, name='create_order'),
-    path('api/orders/<str:order_id>/', order_details, name='order_details'),
-    path('api/users/<str:user_id>/orders/', order_history, name='order_history'),
-    path('api/orders/<str:order_id>/cancel/', cancel_order, name='cancel_order'),
-    path('api/orders/<str:order_id>/tracking/', order_tracking, name='order_tracking'),
+    path('api/cart/add/', add_to_cart, name='add-to-cart'),
+    path('api/cart/update/', update_cart, name='update-cart'),
+    path('api/cart/remove/', remove_from_cart, name='remove-from-cart'),
+    path('api/cart/checkout/', cart_checkout, name='cart-checkout'),
 ]

@@ -1,17 +1,18 @@
 from rest_framework import serializers
 
-class OrderSerializer(serializers.Serializer):
-    user_id = serializers.IntegerField()
-    products = serializers.ListField(child=serializers.DictField(child=serializers.CharField()))
+class AddToCartSerializer(serializers.Serializer):
+    user_id = serializers.CharField()
+    product_id = serializers.CharField()
+    quantity = serializers.IntegerField()
 
-class OrderDetailsSerializer(serializers.Serializer):
-    order_id = serializers.CharField()
-    # Include other fields for order details
+class UpdateCartSerializer(serializers.Serializer):
+    user_id = serializers.CharField()
+    product_id = serializers.CharField()
+    quantity = serializers.IntegerField()
 
-class OrderHistorySerializer(serializers.Serializer):
-    order_id = serializers.CharField()
-    # Include other fields for order history
+class RemoveFromCartSerializer(serializers.Serializer):
+    user_id = serializers.CharField()
+    product_id = serializers.CharField()
 
-class OrderTrackingSerializer(serializers.Serializer):
-    order_id = serializers.CharField()
-    # Include other fields for order tracking    
+class CartCheckoutSerializer(serializers.Serializer):
+    user_id = serializers.CharField()    
