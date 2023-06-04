@@ -1,9 +1,9 @@
 from django.urls import path
-from .views import ProductImageUploadView, UserProfilePictureUploadView, FileUploadView, file_download_view
+from .views import AddReview, RetrieveReviews, UpdateReview, DeleteReview
 
 urlpatterns = [
-    path('api/product/image-upload/', ProductImageUploadView.as_view(), name='product-image-upload'),
-    path('api/user/profile-picture-upload/', UserProfilePictureUploadView.as_view(), name='profile-picture-upload'),
-    path('api/file/upload/', FileUploadView.as_view(), name='file-upload'),
-    path('api/file/download/<int:fileId>/', file_download_view, name='file-download'),
+    path('api/products/<int:product_id>/reviews', AddReview.as_view(), name='add_review'),
+    path('api/products/<int:product_id>/reviews', RetrieveReviews.as_view(), name='retrieve_reviews'),
+    path('api/products/<int:product_id>/reviews/<int:review_id>', UpdateReview.as_view(), name='update_review'),
+    path('api/products/<int:product_id>/reviews/<int:review_id>', DeleteReview.as_view(), name='delete_review'),
 ]

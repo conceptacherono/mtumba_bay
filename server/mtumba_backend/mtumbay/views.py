@@ -1,39 +1,44 @@
 from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework.response import Response
-from .serializers import ProductImageSerializer, UserProfilePictureSerializer, FileUploadSerializer
-from django.http import FileResponse
-from .models import FileModel
+from rest_framework import status
+from .serializers import ReviewSerializer
+from .models import Review
 
-class ProductImageUploadView(APIView):
-    def post(self, request, format=None):
-        serializer = ProductImageSerializer(data=request.data)
+class AddReview(APIView):
+    def post(self, request, product_id):
+        serializer = ReviewSerializer(data=request.data)
         if serializer.is_valid():
-            # Process and store the image
-            # ...
-            return Response("Image uploaded successfully.")
-        return Response(serializer.errors, status=400)
+            # Save the review/rating for the product
+            serializer.save(product_id=product_id)
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class RetrieveReviews(APIView):
+    def get(self, request, product_id):
+        reviews = Review.objects.filter(product_id=product_id)
+        serializer = ReviewSerializer(reviews, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+class UpdateReview(APIView):
+    def put(self, request, product_id, review_id):
+        try:
+            review = Review.objects.get(id=review_id, product_id=product_id)
+        except Review.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        serializer = ReviewSerializer(review, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
-class UserProfilePictureUploadView(APIView):
-    def post(self, request, format=None):
-        serializer = UserProfilePictureSerializer(data=request.data)
-        if serializer.is_valid():
-            # Process and store the profile picture
-            # ...
-            return Response("Profile picture uploaded successfully.")
-        return Response(serializer.errors, status=400)  
+class DeleteReview(APIView):
+    def delete(self, request, product_id, review_id):
+        try:
+            review = Review.objects.get(id=review_id, product_id=product_id)
+        except Review.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
-class FileUploadView(APIView):
-    def post(self, request, format=None):
-        serializer = FileUploadSerializer(data=request.data)
-        if serializer.is_valid():
-            # Process and store the file
-            # ...
-            return Response("File uploaded successfully.")
-        return Response(serializer.errors, status=400)    
-
-def file_download_view(request, fileId):
-    # Retrieve the file based on the fileId
-    file = FileModel.objects.get(id=fileId)
-    file_path = file.file.path
-    return FileResponse(open(file_path, 'rb'), as_attachment=True)      
+        review.delete()
+        return Response(status=status.HTTP_204_NO_CONTENT)     

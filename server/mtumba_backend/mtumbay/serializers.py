@@ -1,10 +1,7 @@
 from rest_framework import serializers
+from .models import Review
 
-class ProductImageSerializer(serializers.Serializer):
-    image = serializers.ImageField()
-
-class UserProfilePictureSerializer(serializers.Serializer):
-    picture = serializers.ImageField()
-
-class FileUploadSerializer(serializers.Serializer):
-    file = serializers.FileField()
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('id', 'userId', 'rating', 'reviewText', 'product_id')

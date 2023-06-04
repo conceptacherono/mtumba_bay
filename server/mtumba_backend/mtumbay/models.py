@@ -1,7 +1,12 @@
 from django.db import models
 
-class FileModel(models.Model):
-    file = models.FileField(upload_to='files/')
+class Review(models.Model):
+    userId = models.CharField(max_length=100)
+    rating = models.FloatField()
+    reviewText = models.TextField()
+    product_id = models.PositiveIntegerField()
 
-    def filename(self):
-        return self.file.name.split('/')[-1]
+    # Add any additional fields or methods as needed
+
+    def __str__(self):
+        return f"Review by {self.userId} for product {self.product_id}"
