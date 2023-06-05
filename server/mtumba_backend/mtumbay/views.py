@@ -3,13 +3,16 @@ from rest_framework import generics, views, status, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer, UserProfileSerializer, OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer, ProductSerializer, AddToCartSerializer, CartCheckoutSerializer, RemoveFromCartSerializer, UpdateCartSerializer, ReviewSerializer
+from .serializers import UserSerializer, UserProfileSerializer, OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer, ProductSerializer, AddToCartSerializer, CartCheckoutSerializer, RemoveFromCartSerializer, UpdateCartSerializer, ReviewSerializer, ProductImageSerializer, UserProfilePictureSerializer, FileUploadSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .models import Product, Review
+from .models import Product, Review, FileModel
+from django.http import FileResponse
+
+# Create your views here.
 
 
     #user endpoints
@@ -230,3 +233,37 @@ class DeleteReview(APIView):
 
         review.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)        
+    
+    #uploads endpoints
+class ProductImageUploadView(APIView):
+    def post(self, request, format=None):
+        serializer = ProductImageSerializer(data=request.data)
+        if serializer.is_valid():
+            # Process and store the image
+            # ...
+            return Response("Image uploaded successfully.")
+        return Response(serializer.errors, status=400)
+    
+class UserProfilePictureUploadView(APIView):
+    def post(self, request, format=None):
+        serializer = UserProfilePictureSerializer(data=request.data)
+        if serializer.is_valid():
+            # Process and store the profile picture
+            # ...
+            return Response("Profile picture uploaded successfully.")
+        return Response(serializer.errors, status=400)  
+
+class FileUploadView(APIView):
+    def post(self, request, format=None):
+        serializer = FileUploadSerializer(data=request.data)
+        if serializer.is_valid():
+            # Process and store the file
+            # ...
+            return Response("File uploaded successfully.")
+        return Response(serializer.errors, status=400)    
+
+def file_download_view(request, fileId):
+    # Retrieve the file based on the fileId
+    file = FileModel.objects.get(id=fileId)
+    file_path = file.file.path
+    return FileResponse(open(file_path, 'rb'), as_attachment=True)          

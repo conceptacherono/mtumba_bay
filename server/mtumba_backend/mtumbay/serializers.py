@@ -65,4 +65,14 @@ class CartCheckoutSerializer(serializers.Serializer):
 class ReviewSerializer(serializers.ModelSerializer):
     class Meta:
         model = Review
-        fields = ('id', 'userId', 'rating', 'reviewText', 'product_id')    
+        fields = ('id', 'userId', 'rating', 'reviewText', 'product_id')   
+
+     #upload endpoints
+class ProductImageSerializer(serializers.Serializer):
+    image = serializers.ImageField()
+
+class UserProfilePictureSerializer(serializers.Serializer):
+    picture = serializers.ImageField()
+
+class FileUploadSerializer(serializers.Serializer):
+    file = serializers.FileField()                 
