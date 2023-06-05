@@ -2,7 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from .models import Product
+from .models import Product, Review
       
       #user endpoints
 class UserSerializer(serializers.ModelSerializer):
@@ -60,3 +60,9 @@ class RemoveFromCartSerializer(serializers.Serializer):
 
 class CartCheckoutSerializer(serializers.Serializer):
     user_id = serializers.CharField()    
+
+    #review endpoints
+class ReviewSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Review
+        fields = ('id', 'userId', 'rating', 'reviewText', 'product_id')    

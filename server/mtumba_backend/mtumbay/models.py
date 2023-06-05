@@ -11,7 +11,7 @@ class Product(models.Model):
     def __str__(self):
         return self.name
      
-  #review 
+  #review endpoints
 class Review(models.Model):
     userId = models.CharField(max_length=100)
     rating = models.FloatField()
