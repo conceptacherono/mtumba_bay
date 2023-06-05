@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import UserRegistrationView, UserLogoutView, UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout
+from .views import UserRegistrationView, UserLogoutView, UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout, AddReview, RetrieveReviews, UpdateReview, DeleteReview
+
 from rest_framework.authtoken.views import obtain_auth_token
 
 app_name = 'mtumbay'
@@ -31,5 +32,11 @@ urlpatterns = [
     path('api/cart/update/', update_cart, name='update-cart'),
     path('api/cart/remove/', remove_from_cart, name='remove-from-cart'),
     path('api/cart/checkout/', cart_checkout, name='cart-checkout'),
+
+    #review endpoints
+    path('api/products/<int:product_id>/reviews', AddReview.as_view(), name='add_review'),
+    path('api/products/<int:product_id>/reviews', RetrieveReviews.as_view(), name='retrieve_reviews'),
+    path('api/products/<int:product_id>/reviews/<int:review_id>', UpdateReview.as_view(), name='update_review'),
+    path('api/products/<int:product_id>/reviews/<int:review_id>', DeleteReview.as_view(), name='delete_review'),
 ]
 
