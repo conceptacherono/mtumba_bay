@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import UserRegistrationView, UserLogoutView, UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView
+from .views import UserRegistrationView, UserLogoutView, UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout
 from rest_framework.authtoken.views import obtain_auth_token
 
 app_name = 'mtumbay'
@@ -25,5 +25,11 @@ urlpatterns = [
     path('api/products/', ProductCreateUpdateAPIView.as_view(), name='product-create'),
     path('api/products/<int:pk>/', ProductCreateUpdateAPIView.as_view(), name='product-update'),
     path('api/products/<int:pk>/', ProductDeleteAPIView.as_view(), name='product-delete'),
+
+    #shopping-cart endpoints
+    path('api/cart/add/', add_to_cart, name='add-to-cart'),
+    path('api/cart/update/', update_cart, name='update-cart'),
+    path('api/cart/remove/', remove_from_cart, name='remove-from-cart'),
+    path('api/cart/checkout/', cart_checkout, name='cart-checkout'),
 ]
 
