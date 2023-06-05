@@ -3,13 +3,13 @@ from rest_framework import generics, views, status, permissions
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer, UserProfileSerializer
+from .serializers import UserSerializer, UserProfileSerializer, OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer, ProductSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializers import OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer
+from .models import Product
 
     #user endpoints
 class UserRegistrationView(APIView):
@@ -100,3 +100,30 @@ def order_tracking(request, order_id):
     }
     serializer = OrderTrackingSerializer(tracking_info)
     return Response(serializer.data)     
+
+#product endpoints
+class ProductListAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+class ProductRetrieveAPIView(generics.RetrieveAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer    
+
+class ProductSearchAPIView(generics.ListAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        search_query = self.request.query_params.get('query')
+        if search_query:
+            return self.queryset.filter(name__icontains=search_query)
+        return self.queryset.none()
+    
+class ProductCreateUpdateAPIView(generics.CreateAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer    
+
+class ProductDeleteAPIView(generics.DestroyAPIView):
+    queryset = Product.objects.all()
+    serializer_class = ProductSerializer

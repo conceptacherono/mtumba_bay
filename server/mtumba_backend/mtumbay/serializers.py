@@ -2,6 +2,7 @@ from rest_framework import serializers
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from django.contrib.auth.models import User
+from .models import Product
       
       #user endpoints
 class UserSerializer(serializers.ModelSerializer):
@@ -35,4 +36,10 @@ class OrderHistorySerializer(serializers.Serializer):
 class OrderTrackingSerializer(serializers.Serializer):
     order_id = serializers.CharField()
     # Include other fields for order tracking     
+
+    #product endpoints
+class ProductSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Product
+        fields = '__all__'    
 
