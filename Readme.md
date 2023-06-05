@@ -126,7 +126,8 @@ _If instead you prefer using docker:_
 
 ## Endpoints
 User endpoints
-   1. Endpoint: /api/auth/register
+
+  1. Endpoint: /api/auth/register
        HTTP Method: POST
        Description: This endpoint is used for user registration. It expects a POST request to create a new user account.
 
@@ -143,7 +144,8 @@ User endpoints
        Description: This endpoint is used to retrieve the user's profile information. It expects a GET request with a valid authentication token in the headers to access the user's profile details.
     
 Order Endpoints
-    1.Endpoint: /api/orders/
+
+   1.Endpoint: /api/orders/
         HTTP Method: POST
         Description: This endpoint is used to create a new order. It expects a POST request with the necessary order details to create the order.
      
@@ -164,7 +166,8 @@ Order Endpoints
         Description: This endpoint is used to track the status of a specific order. It expects a GET request with the order_id parameter in the URL to fetch the tracking information for the corresponding order.
 
 Product Endpoints 
-    1.Endpoint: /api/products/
+
+   1.Endpoint: /api/products/
         HTTP Method: GET
         Description: This endpoint is used to retrieve a list of products. It expects a GET request to fetch all available products.
         
