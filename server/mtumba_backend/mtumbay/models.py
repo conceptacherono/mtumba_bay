@@ -22,3 +22,10 @@ class Review(models.Model):
 
     def __str__(self):
         return f"Review by {self.userId} for product {self.product_id}"
+
+   #uploads enpoints
+class FileModel(models.Model):
+    file = models.FileField(upload_to='files/')
+
+    def filename(self):
+        return self.file.name.split('/')[-1]   
