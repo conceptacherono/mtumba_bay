@@ -1,10 +1,12 @@
+import ProductCategories from "../productCategories";
 import Hero from "./Hero";
 
 const LandingPage = () => {
   return (
     <div>
       <Hero />
-      <h2>Application&apos;s landing page</h2>
+      <ProductCategories />
+      {/* <h2>Application&apos;s landing page</h2> */}
     </div>
   );
 };
