@@ -5,7 +5,7 @@ import CategoryCard from "../../../lib/ui/CategoryCard";
 const ProductCategories = () => {
   return (
     <section className="pt-24">
-      <h2 className="font-[500] text-2xl">Shop our top categories</h2>
+      <h2 className="font-[500] py-4 text-2xl">Shop our top categories</h2>
 
       <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
         {productCategoryData.map((category) => (
