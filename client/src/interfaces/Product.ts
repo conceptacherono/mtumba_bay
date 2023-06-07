@@ -1,9 +1,11 @@
 export interface ProductType {
   id: number;
-  name: string;
+  title: string;
   description: string;
-  imageURL: string;
+  category: string;
   price: number;
-  rating: number;
-  reviews: number;
+  rating: {
+    rate: number;
+    count: number;
+  };
 }
