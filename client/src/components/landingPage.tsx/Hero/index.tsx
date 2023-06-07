@@ -1,6 +1,6 @@
 const Hero = () => {
   return (
-    <section className="flex flex-col gap-4 items-center w-full">
+    <section className="flex flex-col gap-4 items-center w-full py-16">
       <h1 className="text-[56px] font-semibold">
         Better clothing for the planet
       </h1>
