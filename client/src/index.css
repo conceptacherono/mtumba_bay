@@ -1,4 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+  font-family: "Public Sans", sans-serif;
+}
+
+.grid-layout {
+  @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5;
+}
+
+.grid-layout-listings {
+  @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
+}

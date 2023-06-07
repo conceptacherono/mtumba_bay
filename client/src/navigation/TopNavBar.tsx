@@ -30,7 +30,10 @@ export default function TopNavBar() {
           className="p-1 font-normal"
           key={link.title}
         >
-          <Link to={link.href} className="flex items-center">
+          <Link
+            to={link.href}
+            className="flex items-center text-gray-800 hover:text-gray-900"
+          >
             {link.title}
           </Link>
         </Typography>
@@ -40,11 +43,11 @@ export default function TopNavBar() {
 
   return (
     <>
-      <Navbar className="sticky inset-0 z-10 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 backdrop-filter backdrop-blur ">
+      <Navbar className="sticky inset-0 z-20 h-max max-w-full rounded-none py-2 px-4 lg:px-8 lg:py-4 backdrop-filter backdrop-blur">
         <div className="flex items-center justify-between text-blue-gray-900">
           <Link to={"/"} className="flex items-center gap-2">
             <img src={Logo} alt="app logo" className="h-12 rounded-full" />
-            <Typography className="mr-4 cursor-pointer py-1.5 font-stylish font-semibold text-lg">
+            <Typography className="mr-4 cursor-pointer py-1.5 font-stylish font-semibold text-lg text-gray-900">
               Mtumba Bay
             </Typography>
           </Link>
@@ -55,7 +58,7 @@ export default function TopNavBar() {
               size="sm"
               className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
             >
-              <span>Signup / Login</span>
+              <span className="text-black">Signup / Login</span>
             </Button>
             <IconButton
               variant="text"

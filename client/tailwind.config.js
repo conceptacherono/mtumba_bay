@@ -6,7 +6,14 @@ export default {
       fontFamily: {
         stylish: ["'Dancing Script', cursive"],
       },
+      colors: {
+        primary: "#102601",
+        darkGreen: "#214001",
+        lightGreen: "#365902",
+        brown: "#736346",
+        dark: "#0D0D0D",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("@tailwindcss/line-clamp")],
 };

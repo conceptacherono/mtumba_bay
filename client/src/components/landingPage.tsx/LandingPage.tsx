@@ -1,7 +1,14 @@
+import ProductCategories from "./productCategories";
+import Hero from "./Hero";
+import BestDeals from "./BestDeals";
+
 const LandingPage = () => {
   return (
     <div>
-      <h2>Application&apos;s landing page</h2>
+      <Hero />
+      <ProductCategories />
+      <BestDeals />
+      {/* <h2>Application&apos;s landing page</h2> */}
     </div>
   );
 };
