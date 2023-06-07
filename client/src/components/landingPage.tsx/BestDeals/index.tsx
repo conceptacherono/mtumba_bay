@@ -16,9 +16,9 @@ const BestDeals = () => {
   return (
     <section className="pt-16">
       <h2 className="font-[500] py-4 text-2xl">Today's best deals for you</h2>
-      <div className="flex gap-4">
+      <div className="flex gap-2 lg:gap-4 flex-wrap ">
         <div
-          className={`px-8 py-2 border transition rounded-full border-black cursor-pointer mb-8 ${
+          className={`px-8 py-2 border transition rounded-full border-black cursor-pointer mb-2 lg:mb-8 ${
             activeCategory === "all" &&
             "bg-darkGreen border-darkGreen text-white"
           }`}
@@ -29,7 +29,7 @@ const BestDeals = () => {
         {categories?.map((category, index) => (
           <div
             key={index}
-            className={`px-4 py-2 transition border rounded-full border-black cursor-pointer mb-8 ${
+            className={`px-4 py-2 transition border rounded-full border-black cursor-pointer mb-2 lg:mb-8 ${
               activeCategory === category &&
               "bg-darkGreen border-darkGreen text-white"
             }`}
@@ -43,7 +43,7 @@ const BestDeals = () => {
       {isFetching && <h2>Fetching...</h2>}
       {error && <h2>Something went wrong </h2>}
       {isSuccess && (
-        <div className="grid grid-cols-4 gap-6">
+        <div className="grid-layout-listings gap-6 mt-4">
           {data.map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

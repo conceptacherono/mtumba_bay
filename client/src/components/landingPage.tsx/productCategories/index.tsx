@@ -7,7 +7,7 @@ const ProductCategories = () => {
     <section className="pt-24">
       <h2 className="font-[500] py-4 text-2xl">Shop our top categories</h2>
 
-      <div className="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
+      <div className="grid-layout gap-4">
         {productCategoryData.map((category) => (
           <CategoryCard key={category.index} category={category} />
         ))}
