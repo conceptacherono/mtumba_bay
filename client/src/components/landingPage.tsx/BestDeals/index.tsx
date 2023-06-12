@@ -4,6 +4,7 @@ import {
   useGetCategoriesQuery,
   useGetProductsQuery,
 } from "../../../services/productsApi";
+import Loader from "../../Loader";
 
 const BestDeals = () => {
   const { data, error, isLoading, isFetching, isSuccess } =
@@ -39,8 +40,7 @@ const BestDeals = () => {
           </div>
         ))}
       </div>
-      {isLoading && loadingCategories && <h2>Loading...</h2>}
-      {isFetching && <h2>Fetching...</h2>}
+      {(isLoading || loadingCategories || isFetching) && <Loader />}
       {error && <h2>Something went wrong </h2>}
       {isSuccess && (
         <div className="grid-layout-listings gap-6 mt-4">
