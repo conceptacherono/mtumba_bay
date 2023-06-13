@@ -1,4 +1,5 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { configureStore} from "@reduxjs/toolkit";
+import ProductSlice from "./features/ProductSlice";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { productsApi } from "../services/productsApi";
 import ProductSlice from "./features/ProductSlice";

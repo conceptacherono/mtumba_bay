@@ -121,6 +121,130 @@ _If instead you prefer using docker:_
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
+
+<!--ENDPOINTS -->
+
+## Endpoints
+User endpoints
+
+  1. Endpoint: /api/auth/register
+       HTTP Method: POST
+       Description: This endpoint is used for user registration. It expects a POST request to create a new user account.
+
+   2.Endpoint: /api/auth/login
+       HTTP Method: POST
+       Description: This endpoint is used for user login. It expects a POST request with the user's credentials to authenticate and       obtain an authentication token.
+   
+   3.Endpoint: /api/auth/logout
+       HTTP Method: POST
+       Description: This endpoint is used for user logout. It expects a POST request to invalidate the user's authentication token and log them out.
+
+   4.Endpoint: /api/auth/profile
+       HTTP Method: GET
+       Description: This endpoint is used to retrieve the user's profile information. It expects a GET request with a valid authentication token in the headers to access the user's profile details.
+    
+Order Endpoints
+
+   1.Endpoint: /api/orders/
+        HTTP Method: POST
+        Description: This endpoint is used to create a new order. It expects a POST request with the necessary order details to create the order.
+     
+   2.Endpoint: /api/orders/<str:order_id>/
+       HTTP Method: GET
+       Description: This endpoint is used to retrieve the details of a specific order. It expects a GET request with the order_id parameter in the URL to fetch the details of the corresponding order.
+
+   3.Endpoint: /api/users/<str:user_id>/orders/
+       HTTP Method: GET
+       Description: This endpoint is used to retrieve the order history of a specific user. It expects a GET request with the user_id parameter in the URL to fetch the order history of the corresponding user.
+   
+   4.Endpoint: /api/orders/<str:order_id>/cancel/
+       HTTP Method: POST
+       Description: This endpoint is used to cancel a specific order. It expects a POST request with the order_id parameter in the URL to cancel the corresponding order.
+       
+   5.Endpoint: /api/orders/<str:order_id>/tracking/
+       HTTP Method: GET
+        Description: This endpoint is used to track the status of a specific order. It expects a GET request with the order_id parameter in the URL to fetch the tracking information for the corresponding order.
+
+Product Endpoints 
+
+   1.Endpoint: /api/products/
+        HTTP Method: GET
+        Description: This endpoint is used to retrieve a list of products. It expects a GET request to fetch all available products.
+        
+   2.Endpoint: /api/products/<int:pk>/
+        HTTP Method: GET
+        Description: This endpoint is used to retrieve the details of a specific product. It expects a GET request with the pk (product primary key) parameter in the URL to fetch the details of the corresponding product.
+
+   3.Endpoint: /api/products/search/
+       HTTP Method: GET
+       Description: This endpoint is used to search for products based on certain criteria. It expects a GET request with the necessary search parameters to retrieve the matching products.
+
+   4.Endpoint: /api/products/
+       HTTP Method: POST
+       Description: This endpoint is used to create a new product. It expects a POST request with the necessary details to create the product.
+    
+   5.Endpoint: /api/products/<int:pk>/
+       HTTP Method: PUT
+       Description: This endpoint is used to update the details of a specific product. It expects a PUT request with the pk parameter in the URL to update the corresponding product.
+   
+   6.Endpoint: /api/products/<int:pk>/
+       HTTP Method: DELETE
+       Description: This endpoint is used to delete a specific product. It expects a DELETE request with the pk parameter in the URL to delete the corresponding product.
+
+Shopping cart Endpoints
+
+   1.Endpoint: /api/cart/add/
+       HTTP Method: POST
+       Description: This endpoint is used to add a product to the shopping cart. It expects a POST request with the necessary details (e.g., product ID, quantity) to add the product to the cart.
+
+   2.Endpoint: /api/cart/update/
+       HTTP Method: PUT
+       Description: This endpoint is used to update the quantity or details of a product in the shopping cart. It expects a PUT request with the necessary details (e.g., product ID, updated quantity) to modify the cart.
+
+   3.Endpoint: /api/cart/remove/
+       HTTP Method: DELETE
+       Description: This endpoint is used to remove a product from the shopping cart. It expects a DELETE request with the necessary details (e.g., product ID) to remove the product from the cart.
+
+   4.Endpoint: /api/cart/checkout/
+       HTTP Method: POST
+       Description: This endpoint is used to initiate the checkout process for the items in the shopping cart. It expects a POST request to initiate the checkout process, which may include payment processing and order placement.   
+
+Review Endpoints 
+
+   1.Endpoint: /api/products/<int:product_id>/reviews
+       HTTP Method: POST
+       Description: This endpoint is used to add a review for a specific product. It expects a POST request with the necessary details (e.g., product ID, review content) to add a new review.
+    
+   2.Endpoint: /api/products/<int:product_id>/reviews
+       HTTP Method: GET
+       Description: This endpoint is used to retrieve all the reviews for a specific product. It expects a GET request to fetch the reviews associated with the specified product.
+
+   3.Endpoint: /api/products/<int:product_id>/reviews/<int:review_id>
+       HTTP Method: PUT
+       Description: This endpoint is used to update a specific review for a product. It expects a PUT request with the product_id and review_id parameters in the URL to update the corresponding review.
+
+   4.Endpoint: /api/products/<int:product_id>/reviews/<int:review_id>
+       HTTP Method: DELETE
+       Description: This endpoint is used to delete a specific review for a product. It expects a DELETE request with the product_id and review_id parameters in the URL to delete the corresponding review.
+  
+Upload Endpoints
+
+1.Endpoint: /api/product/image-upload/
+    HTTP Method: POST
+    Description: This endpoint is used to upload an image for a product. It expects a POST request with the image file data to upload the image for the product.
+
+   2.Endpoint: /api/user/profile-picture-upload/
+       HTTP Method: POST
+       Description: This endpoint is used to upload a profile picture for a user. It expects a POST request with the image file data to upload the profile picture for the user.
+
+   3.Endpoint: /api/file/upload/
+       HTTP Method: POST
+       Description: This endpoint is used to upload a file. It expects a POST request with the file data to upload the file.
+
+   4.Endpoint: /api/file/download/<int:fileId>/
+       HTTP Method: GET
+       Description: This endpoint is used to download a specific file. It expects a GET request with the fileId parameter in the URL to download the corresponding file.
+    
 <!-- ROADMAP -->
 
 ## Roadmap
