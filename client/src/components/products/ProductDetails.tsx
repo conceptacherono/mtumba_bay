@@ -5,11 +5,7 @@ import ProductInfo from "./Product/ProductInfo";
 
 const ProductDetails = () => {
   const { id } = useParams();
-  const {
-    data: product,
-    error,
-    isLoading,
-  } = useGetProductByIdQuery(id as string);
+  const { data: product, isLoading } = useGetProductByIdQuery(id as string);
 
   return (
     <div className="w-full flex items-center justify-center">
