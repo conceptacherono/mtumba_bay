@@ -1,7 +1,7 @@
-import { configureStore, getDefaultMiddleware } from "@reduxjs/toolkit";
-import ProductSlice from "./features/ProductSlice";
+import { configureStore } from "@reduxjs/toolkit";
 import { TypedUseSelectorHook, useDispatch, useSelector } from "react-redux";
 import { productsApi } from "../services/productsApi";
+import ProductSlice from "./features/ProductSlice";
 
 export const store = configureStore({
   reducer: {
