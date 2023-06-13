@@ -1,12 +1,27 @@
 import { useParams } from "react-router-dom";
+import { useGetProductByIdQuery } from "../../services/productsApi";
+import Loader from "../Loader";
+import ProductInfo from "./Product/ProductInfo";
 
 const ProductDetails = () => {
-  const params = useParams();
+  const { id } = useParams();
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useGetProductByIdQuery(id as string);
 
-  console.log(params);
   return (
-    <div className="h-full w-full flex items-center justify-center">
-      ProductDetails page
+    <div className="w-full flex items-center justify-center">
+      {isLoading ? (
+        <Loader />
+      ) : product ? (
+        <ProductInfo product={product} />
+      ) : (
+        <div>
+          <p>Could not find this product's details.</p>
+        </div>
+      )}
     </div>
   );
 };
