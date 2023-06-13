@@ -10,7 +10,7 @@ const AppLayoutWrapper = ({ children }: Props) => {
   return (
     <div>
       <TopNavBar />
-      <section className="mx-2 md:mx-auto max-w-screen-xl py-12 min-h-screen">
+      <section className="mx-2 md:mx-auto max-w-screen-xl my-12 min-h-[80vh]">
         {children}
       </section>
       <Footer />

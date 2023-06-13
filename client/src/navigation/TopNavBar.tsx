@@ -1,14 +1,14 @@
-import React from "react";
 import {
-  Navbar,
-  MobileNav,
-  Typography,
-  IconButton,
   Button,
+  Collapse,
+  IconButton,
+  Navbar,
+  Typography,
 } from "@material-tailwind/react";
+import React from "react";
+import { Link } from "react-router-dom";
 import { navLinks } from "../utils";
 import Logo from "/logo.jpg";
-import { Link } from "react-router-dom";
 
 export default function TopNavBar() {
   const [openNav, setOpenNav] = React.useState(false);
@@ -99,16 +99,16 @@ export default function TopNavBar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           {navList}
           <Button
             variant="gradient"
             size="sm"
-            className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
+            className="lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
           >
-            <span>Signup / Login</span>
+            <span className="text-black">Signup / Login</span>
           </Button>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </>
   );
