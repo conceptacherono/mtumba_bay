@@ -11,10 +11,21 @@ type Props = {
 const ProductInfo = ({ product }: Props) => {
   const [selectedSize, setselectedSize] = React.useState<string>(sizes[0]);
   const [quantity, setquantity] = React.useState<number>(1);
+  const [relatedProducts, setRelatedProducts] = React.useState<ProductType[]>(
+    []
+  );
 
-  const { data: relatedProducts, isLoading } = useGetProductsByCategoryQuery(
+  const { data, isLoading, refetch } = useGetProductsByCategoryQuery(
     product.category
   );
+
+  React.useEffect(() => {
+    refetch();
+
+    if (data) {
+      setRelatedProducts(data);
+    }
+  }, [product, data, refetch]);
 
   return (
     <section>
@@ -88,9 +99,15 @@ const ProductInfo = ({ product }: Props) => {
           <Loader />
         ) : relatedProducts && relatedProducts.length > 0 ? (
           <div className="grid-layout-listings gap-6 mt-2">
-            {relatedProducts.map((product) => (
-              <ProductCard key={product.id} product={product} />
-            ))}
+            {relatedProducts.map(
+              (relatedProduct) =>
+                relatedProduct.id !== product.id && (
+                  <ProductCard
+                    key={relatedProduct.id}
+                    product={relatedProduct}
+                  />
+                )
+            )}
           </div>
         ) : (
           <div>No related products</div>
