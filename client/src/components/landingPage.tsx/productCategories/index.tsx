@@ -38,7 +38,7 @@ const productCategoryData: ProductCategoryType[] = [
     image: Tech,
   },
   {
-    index: 4,
+    index: 5,
     name: "Men",
     image: Mens,
   },

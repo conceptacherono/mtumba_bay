@@ -5,6 +5,7 @@ import {
   Typography,
   IconButton,
   Button,
+  Collapse,
 } from "@material-tailwind/react";
 import { navLinks } from "../utils";
 import Logo from "/logo.jpg";
@@ -99,16 +100,16 @@ export default function TopNavBar() {
             </IconButton>
           </div>
         </div>
-        <MobileNav open={openNav}>
+        <Collapse open={openNav}>
           {navList}
           <Button
             variant="gradient"
             size="sm"
-            className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
+            className="lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
           >
-            <span>Signup / Login</span>
+            <span className="text-black">Signup / Login</span>
           </Button>
-        </MobileNav>
+        </Collapse>
       </Navbar>
     </>
   );
