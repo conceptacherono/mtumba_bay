@@ -53,13 +53,15 @@ export default function TopNavBar() {
           </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
-            >
-              <span className="text-black">Signup / Login</span>
-            </Button>
+            <Link to={"/auth/signup"}>
+              <Button
+                variant="gradient"
+                size="sm"
+                className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
+              >
+                <span className="text-black">Signup / Login</span>
+              </Button>
+            </Link>
             <IconButton
               variant="text"
               className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -101,13 +103,15 @@ export default function TopNavBar() {
         </div>
         <Collapse open={openNav}>
           {navList}
-          <Button
-            variant="gradient"
-            size="sm"
-            className="lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
-          >
-            <span className="text-black">Signup / Login</span>
-          </Button>
+          <Link to={"/auth/signup"}>
+            <Button
+              variant="gradient"
+              size="sm"
+              className="lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
+            >
+              <span className="text-black">Signup / Login</span>
+            </Button>
+          </Link>
         </Collapse>
       </Navbar>
     </>

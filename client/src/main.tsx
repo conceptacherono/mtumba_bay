@@ -3,7 +3,13 @@ import ReactDOM from "react-dom/client";
 import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
-import { LandingPage, ProductDetails, Products } from "./components/index.ts";
+import {
+  LandingPage,
+  Login,
+  ProductDetails,
+  Products,
+  SignUP,
+} from "./components/index.ts";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
 
@@ -18,6 +24,19 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
+        path: "/auth",
+        children: [
+          {
+            path: "signup",
+            element: <SignUP />,
+          },
+          {
+            path: "login",
+            element: <Login />,
+          },
+        ],
+      },
+      {
         path: "/products",
         children: [
           {
@@ -26,7 +45,7 @@ const router = createBrowserRouter([
             element: <Products />,
           },
           {
-            path: "/products/:id",
+            path: ":id",
             element: <ProductDetails />,
           },
         ],
