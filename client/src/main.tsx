@@ -9,6 +9,7 @@ import {
   ProductDetails,
   Products,
   SignUP,
+  Register,
 } from "./components/index.ts";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
           {
             path: "signup",
             element: <SignUP />,
+          },
+          {
+            path: "register",
+            element: <Register />,
           },
           {
             path: "login",

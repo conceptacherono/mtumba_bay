@@ -59,7 +59,7 @@ export default function TopNavBar() {
                 size="sm"
                 className="hidden lg:inline-block border border-solid rounded-md transition-all hover:border-blue-500"
               >
-                <span className="text-black">Signup / Login</span>
+                <span className="text-black">Login & Register</span>
               </Button>
             </Link>
             <IconButton
