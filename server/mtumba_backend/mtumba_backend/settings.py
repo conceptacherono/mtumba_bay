@@ -68,6 +68,7 @@ MIDDLEWARE = [
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
+    'https://main--mtumba-bay.netlify.app/',
 ]
 
 ROOT_URLCONF = 'mtumba_backend.urls'
