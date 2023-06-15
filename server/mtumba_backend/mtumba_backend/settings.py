@@ -63,12 +63,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-     'corsheaders.middleware.CorsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 CORS_ORIGIN_WHITELIST = [
     'http://localhost:3000',
-    'https://main--mtumba-bay.netlify.app/',
+    'https://mtumba-bay.netlify.app',
 ]
 
 ROOT_URLCONF = 'mtumba_backend.urls'
