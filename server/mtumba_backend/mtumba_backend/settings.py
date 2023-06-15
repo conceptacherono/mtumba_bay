@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$bg5io-$$u3pd4p^+@d95(h+x$(tsy0z$-=pcw3z$i6pp7#vd-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['concepta.pythonanywhere.com']
+ALLOWED_HOSTS = []
 
 
 
@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'mtumbay',
+    'corsheaders',
 ]
 
 REST_FRAMEWORK = {
@@ -62,6 +63,12 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+     'corsheaders.middleware.CorsMiddleware',
+]
+
+CORS_ORIGIN_WHITELIST = [
+    'http://localhost:3000',
+    'https://main--mtumba-bay.netlify.app/',
 ]
 
 ROOT_URLCONF = 'mtumba_backend.urls'
