@@ -11,7 +11,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addProductToCart(product));
+    dispatch(addProductToCart({ ...product, quantity: 1 }));
   };
 
   return (
@@ -24,7 +24,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <img
             src={product.image}
             alt={product.title}
-            className=" h-full object-contain transition hover:scale-105"
+            className="h-full object-contain transition hover:scale-105"
           />
           {/* <div className="absolute top-0 left-0 w-full h-0 flex flex-col justify-center items-center bg-opacity-20 opacity-0 group-hover:h-full group-hover:opacity-100 duration-300">
           <Link
