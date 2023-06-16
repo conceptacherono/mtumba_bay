@@ -1,11 +1,19 @@
 import { Link } from "react-router-dom";
 import { ProductType } from "../../interfaces/Product";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../../store/features/ProductSlice";
 
 interface ProductCardProps {
   product: ProductType;
 }
 
 const ProductCard = ({ product }: ProductCardProps) => {
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addProductToCart(product));
+  };
+
   return (
     <div className="flex flex-col">
       <Link
@@ -37,7 +45,11 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <p className="line-clamp-2 text-sm">{product.description}</p>
         </div>
       </Link>
-      <button className="px-6 w-fit py-2 border my-4 rounded-full font-semibold border-black transition-colors hover:bg-darkGreen hover:text-white hover:border-darkGreen">
+      <button
+        className="px-6 w-fit py-2 border my-4 rounded-full font-semibold border-black transition-colors hover:bg-darkGreen hover:text-white hover:border-darkGreen"
+        onClick={handleAddToCart}
+      >
+        {/* {isInCart ? "Remove from cart" : "Add to cart"} */}
         Add to cart
       </button>
     </div>
