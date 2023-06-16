@@ -20,7 +20,7 @@ const ProductInfo = ({ product }: Props) => {
   const dispatch = useDispatch();
 
   const handleAddToCart = () => {
-    dispatch(addProductToCart(product));
+    dispatch(addProductToCart({ ...product, quantity: quantity }));
   };
 
   React.useEffect(() => {
