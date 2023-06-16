@@ -24,8 +24,14 @@ export const ProductSlice = createSlice({
     addProductToCart: (state, action: PayloadAction<ProductType>) => {
       state.cart.push(action.payload);
     },
+    // todo:: Update filter logic
+    removeProductFromCart: (state, action: PayloadAction<ProductType>) => {
+      state.cart = state.cart.filter(
+        (product) => product.quantity !== action.payload.quantity
+      );
+    },
   },
 });
 
 export default ProductSlice;
-export const { addProductToCart } = ProductSlice.actions;
+export const { addProductToCart, removeProductFromCart } = ProductSlice.actions;
