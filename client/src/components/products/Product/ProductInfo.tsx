@@ -1,8 +1,8 @@
 import React from "react";
 import { ProductType } from "../../../interfaces/Product";
-import { useGetProductsByCategoryQuery } from "../../../services/productsApi";
 import Loader from "../../Loader";
 import ProductCard from "../../../lib/ui/ProductCard";
+import { useGetProductsQuery } from "../../../services/productsApi";
 
 type Props = {
   product: ProductType;
@@ -15,9 +15,7 @@ const ProductInfo = ({ product }: Props) => {
     []
   );
 
-  const { data, isLoading, refetch } = useGetProductsByCategoryQuery(
-    product.category
-  );
+  const { data, isLoading, refetch } = useGetProductsQuery(product.category);
 
   React.useEffect(() => {
     refetch();
