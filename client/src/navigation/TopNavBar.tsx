@@ -59,14 +59,14 @@ export default function TopNavBar() {
             <div className="mr-4 hidden lg:block">{navList}</div>
             {/* TODO:: UPDATE THIS TO ONLY SHOW IF A USER IS LOGGED IN */}
             {/* cart icon and items quantity display */}
-            <div className="relative cursor-pointer">
+            <Link to={"/cart"} className="relative cursor-pointer">
               <BsCart size={24} className="text-primary hover:text-brown" />
               {cart.length > 0 && (
                 <div className="absolute bottom-3 left-4 bg-primary p-1 h-5 w-5 rounded-full flex items-center justify-center">
                   <p className="text-xs">{cart.length}</p>
                 </div>
               )}
-            </div>
+            </Link>
             {/* End of cart display */}
 
             <Link to={"/auth/signup"}>
