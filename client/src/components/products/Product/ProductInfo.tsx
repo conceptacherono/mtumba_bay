@@ -3,6 +3,8 @@ import { ProductType } from "../../../interfaces/Product";
 import Loader from "../../Loader";
 import ProductCard from "../../../lib/ui/ProductCard";
 import { useGetProductsQuery } from "../../../services/productsApi";
+import { useDispatch } from "react-redux";
+import { addProductToCart } from "../../../store/features/ProductSlice";
 
 type Props = {
   product: ProductType;
@@ -14,8 +16,12 @@ const ProductInfo = ({ product }: Props) => {
   const [relatedProducts, setRelatedProducts] = React.useState<ProductType[]>(
     []
   );
-
   const { data, isLoading, refetch } = useGetProductsQuery(product.category);
+  const dispatch = useDispatch();
+
+  const handleAddToCart = () => {
+    dispatch(addProductToCart(product));
+  };
 
   React.useEffect(() => {
     refetch();
@@ -62,7 +68,10 @@ const ProductInfo = ({ product }: Props) => {
               <p className="py-2 text-gray-500">
                 Height of model: 189 cm. / 6' 2″ Size 41
               </p>
-              <button className="lg:w-full w-full  py-4 transition-all bg-lightGreen text-white text-lg font-semibold hover:bg-darkGreen">
+              <button
+                className="lg:w-full w-full  py-4 transition-all bg-lightGreen text-white text-lg font-semibold hover:bg-darkGreen"
+                onClick={handleAddToCart}
+              >
                 Add to cart - Ksh. {Math.round(product.price * quantity)}
               </button>
             </div>
