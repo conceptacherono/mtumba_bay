@@ -1,3 +1,1 @@
-import { CartItem } from "./cart";
-
-export { CartItem };
+export * from "./cart";
