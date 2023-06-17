@@ -10,7 +10,7 @@ const CartItem = ({ product }: CartItemProps) => {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex justify-between items-center gap-1 border border-primary pr-4 mb-4">
+    <div className="flex items-center gap-1 border border-primary pr-4 mb-4">
       <div className="h-48 flex items-center justify-center p-8">
         <img
           src={product.image}
@@ -26,12 +26,12 @@ const CartItem = ({ product }: CartItemProps) => {
           </Link>
         </div> */}
       </div>
-      <div className="flex flex-col gap-2">
+      <div className="flex-1 flex flex-col gap-2">
         <h2 className="text-xl line-clamp-1 font-semibold">{product.title}</h2>
         <p className="text-lg">Quantity: {product.quantity}</p>
         <p>Ksh. {product.price}</p>
         <button
-          className="w-max ml-auto"
+          className="w-max ml-auto border rounded-md p-2 border-red-500 bg-red-200 transition-colors hover:bg-red-300"
           onClick={() => dispatch(removeProductFromCart(product))}
         >
           Remove from cart
