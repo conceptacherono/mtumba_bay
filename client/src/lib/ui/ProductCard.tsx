@@ -3,7 +3,7 @@ import { ProductType } from "../../interfaces/Product";
 import { useDispatch, useSelector } from "react-redux";
 import {
   addProductToCart,
-  removeProductFromCart,
+  // removeProductFromCart,
 } from "../../store/features/ProductSlice";
 import { RootState } from "../../store/store";
 import useFindProductInCart from "../../hooks/useFindProductInCart";
@@ -25,9 +25,9 @@ const ProductCard = ({ product }: ProductCardProps) => {
     dispatch(addProductToCart({ ...product, quantity: 1 }));
   };
 
-  const handleRemoveFromCart = () => {
-    dispatch(removeProductFromCart(product));
-  };
+  // const handleRemoveFromCart = () => {
+  //   dispatch(removeProductFromCart(product));
+  // };
 
   return (
     <div className="flex flex-col">
