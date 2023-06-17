@@ -27,7 +27,6 @@ export const ProductSlice = createSlice({
     updateCartProducts: (state, action: PayloadAction<ProductType>) => {
       state.cart = state.cart.map((product) => {
         if (product.id === action.payload.id) {
-          console.log("here", action.payload);
           return action.payload;
         } else {
           return product;
