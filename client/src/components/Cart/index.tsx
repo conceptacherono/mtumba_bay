@@ -7,7 +7,7 @@ const Cart = () => {
   console.log(cartItems);
   return (
     <div>
-      <h1 className="text-3xl font-bold ">Your Cart</h1>
+      <h1 className="text-3xl font-bold py-4">Your Cart</h1>
       {cartItems.length > 0 ? (
         <CartContainer productsInCart={cartItems} />
       ) : (
