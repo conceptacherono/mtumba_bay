@@ -39,10 +39,8 @@ const ProductInfo = ({ product }: Props) => {
       updateCartProducts({
         ...product,
         quantity: quantity,
-        price: product.price * quantity,
       })
     );
-    console.log(quantity);
   };
 
   React.useEffect(() => {
