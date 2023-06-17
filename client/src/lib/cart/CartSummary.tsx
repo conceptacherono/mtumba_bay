@@ -6,7 +6,7 @@ const CartSummary = () => {
   let totalCartAmount = 0;
 
   for (let i = 0; i < productsInCart.length; i++) {
-    totalCartAmount += productsInCart[i].price;
+    totalCartAmount += productsInCart[i].price * productsInCart[i].quantity;
   }
 
   return (
