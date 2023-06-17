@@ -15,3 +15,7 @@
 .grid-layout-listings {
   @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
 }
+
+.cart-amount {
+  @apply flex justify-between items-center py-2;
+}
