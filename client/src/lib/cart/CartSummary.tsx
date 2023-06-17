@@ -22,7 +22,7 @@ const CartSummary = () => {
       <div className="py-4">
         <div className="cart-amount">
           <p>Subtotal:</p>
-          <p>Ksh. {totalCartAmount}</p>
+          <p>Ksh. {parseFloat(totalCartAmount.toFixed(2))}</p>
         </div>
         <div className="cart-amount">
           <p>Shipping:</p>
@@ -31,7 +31,7 @@ const CartSummary = () => {
         <hr className="my-4" />
         <div className="cart-amount">
           <p>Total:</p>
-          <p>Ksh. {totalCartAmount}</p>
+          <p>Ksh. {parseFloat(totalCartAmount.toFixed(2))}</p>
         </div>
       </div>
 
