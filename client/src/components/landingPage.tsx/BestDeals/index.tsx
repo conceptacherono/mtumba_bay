@@ -5,10 +5,8 @@ import {
   useGetProductsQuery,
 } from "../../../services/productsApi";
 import Loader from "../../Loader";
-import { useDispatch } from "react-redux";
 
 const BestDeals = () => {
-  const dispatch = useDispatch();
   const [activeCategory, setActiveCategory] = React.useState<string>("all");
 
   const { data, error, isLoading, isFetching, isSuccess } =
