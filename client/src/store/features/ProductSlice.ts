@@ -1,6 +1,7 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 import { ProductType } from "../../interfaces/Product";
 // import { ProductType } from "../../interfaces/Product";
+// import { ProductType } from "../../interfaces/Product";
 
 export interface Product {
   id: number;
@@ -14,6 +15,7 @@ interface ProductState {
 
 const initialState: ProductState = {
   products: [],
+  cart: [],
   cart: [],
 };
 
@@ -39,9 +41,17 @@ export const ProductSlice = createSlice({
         (product) => product.id !== action.payload.id
       );
     },
+    ///// todo:: Update filter logic
+    removeProductFromCart: (state, action: PayloadAction<ProductType>) => {
+      state.cart = state.cart.filter(
+        (product) => product.id !== action.payload.id
+      );
+    },
   },
 });
 
 export default ProductSlice;
+export const { addProductToCart, updateCartProducts, removeProductFromCart } =
+  ProductSlice.actions;
 export const { addProductToCart, updateCartProducts, removeProductFromCart } =
   ProductSlice.actions;

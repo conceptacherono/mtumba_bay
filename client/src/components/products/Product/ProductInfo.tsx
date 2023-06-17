@@ -10,6 +10,14 @@ import {
 } from "../../../store/features/ProductSlice";
 import useFindProductInCart from "../../../hooks/useFindProductInCart";
 import { RootState } from "../../../store/store";
+import { useGetProductsQuery } from "../../../services/productsApi";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProductToCart,
+  updateCartProducts,
+} from "../../../store/features/ProductSlice";
+import useFindProductInCart from "../../../hooks/useFindProductInCart";
+import { RootState } from "../../../store/store";
 
 type Props = {
   product: ProductType;
@@ -19,9 +27,21 @@ const ProductInfo = ({ product }: Props) => {
   const [selectedSize, setselectedSize] = React.useState<string>(sizes[0]);
   const [quantity, setquantity] = React.useState<number>(1);
   const [updateCart, setUpdateCart] = React.useState<boolean>(false);
+  const [updateCart, setUpdateCart] = React.useState<boolean>(false);
   const [relatedProducts, setRelatedProducts] = React.useState<ProductType[]>(
     []
   );
+  const { data, isLoading, refetch } = useGetProductsQuery(product.category);
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state: RootState) => state.product.cart);
+  const { isInCart, cartQuantity } = useFindProductInCart({
+    array: cartProducts,
+    productId: product.id,
+  });
+
+  const handleAddToCart = () => {
+    dispatch(addProductToCart({ ...product, quantity: quantity }));
+  };
   const { data, isLoading, refetch } = useGetProductsQuery(product.category);
   const dispatch = useDispatch();
   const cartProducts = useSelector((state: RootState) => state.product.cart);
@@ -95,6 +115,13 @@ const ProductInfo = ({ product }: Props) => {
               >
                 {isInCart ? "In cart" : "Add to cart"} - Ksh.{" "}
                 {Math.round(product.price * quantity)}
+              <button
+                className={`lg:w-full w-full disabled:cursor-not-allowed disabled:bg-darkGreen py-4 transition-all bg-lightGreen text-white text-lg font-semibold hover:bg-darkGreen`}
+                onClick={handleAddToCart}
+                disabled={isInCart}
+              >
+                {isInCart ? "In cart" : "Add to cart"} - Ksh.{" "}
+                {Math.round(product.price * quantity)}
               </button>
             </div>
             <div className="lg:flex-1">
@@ -116,12 +143,24 @@ const ProductInfo = ({ product }: Props) => {
                     setquantity((quantity) => quantity + 1);
                     isInCart && setUpdateCart(true);
                   }}
+                  onClick={() => {
+                    setquantity((quantity) => quantity + 1);
+                    isInCart && setUpdateCart(true);
+                  }}
                 >
                   +
                 </button>
               </div>
             </div>
           </div>
+          {updateCart && quantity !== cartQuantity && (
+            <button
+              className="bg-brown text-white rounded-md p-4 mt-2"
+              onClick={handleUpdateCart}
+            >
+              Update cart quantity
+            </button>
+          )}
           {updateCart && quantity !== cartQuantity && (
             <button
               className="bg-brown text-white rounded-md p-4 mt-2"
