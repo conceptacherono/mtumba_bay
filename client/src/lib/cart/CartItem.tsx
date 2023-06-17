@@ -1,6 +1,11 @@
 import { useDispatch } from "react-redux";
 import { ProductType } from "../../interfaces/Product";
-import { removeProductFromCart } from "../../store/features/ProductSlice";
+import {
+  removeProductFromCart,
+  updateCartProducts,
+} from "../../store/features/ProductSlice";
+import { AiOutlinePlus, AiOutlineMinus } from "react-icons/ai";
+import React, { useEffect } from "react";
 
 type CartItemProps = {
   product: ProductType;
@@ -8,10 +13,23 @@ type CartItemProps = {
 
 const CartItem = ({ product }: CartItemProps) => {
   const dispatch = useDispatch();
+  const [quantity, setQuantity] = React.useState<number>(product.quantity);
+
+  useEffect(() => {
+    const handleUpdateCart = () => {
+      dispatch(
+        updateCartProducts({
+          ...product,
+          quantity: quantity,
+        })
+      );
+    };
+    handleUpdateCart();
+  }, [quantity]);
 
   return (
     <div className="flex items-center gap-1 border border-primary pr-4 mb-4">
-      <div className="h-48 flex items-center justify-center p-8">
+      <div className="h-48 w-40 flex items-center justify-center p-8">
         <img
           src={product.image}
           alt={product.title}
@@ -28,8 +46,29 @@ const CartItem = ({ product }: CartItemProps) => {
       </div>
       <div className="flex-1 flex flex-col gap-2">
         <h2 className="text-xl line-clamp-1 font-semibold">{product.title}</h2>
-        <p className="text-lg">Quantity: {product.quantity}</p>
-        <p>Ksh. {product.price}</p>
+        <div className="flex justify-between items-center">
+          <p className="text-lg">Quantity: {product.quantity}</p>
+          <div className="flex gap-4 items-center">
+            <button
+              className="update-quantity-btn"
+              disabled={quantity === 1}
+              onClick={() => {
+                setQuantity((quantity) => (quantity > 1 ? quantity - 1 : 1));
+              }}
+            >
+              <AiOutlineMinus />
+            </button>
+            <button
+              className="update-quantity-btn"
+              onClick={() => {
+                setQuantity((quantity) => quantity + 1);
+              }}
+            >
+              <AiOutlinePlus />
+            </button>
+          </div>
+        </div>
+        <p>Ksh. {product.price * product.quantity}</p>
         <button
           className="w-max ml-auto border rounded-md p-2 border-red-500 bg-red-200 transition-colors hover:bg-red-300"
           onClick={() => dispatch(removeProductFromCart(product))}
