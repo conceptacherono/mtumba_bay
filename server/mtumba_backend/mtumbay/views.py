@@ -1,41 +1,35 @@
-from django.shortcuts import render
 from rest_framework import generics, views, status, permissions
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, permission_classes
 from rest_framework.response import Response
-from rest_framework.permissions import IsAuthenticated
-from .serializers import UserSerializer, UserProfileSerializer, OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer, ProductSerializer, AddToCartSerializer, CartCheckoutSerializer, RemoveFromCartSerializer, UpdateCartSerializer, ReviewSerializer, ProductImageSerializer, UserProfilePictureSerializer, FileUploadSerializer
+from rest_framework.permissions import IsAuthenticated, AllowAny
+from .serializers import RegistrationSerializer, OrderDetailsSerializer, OrderHistorySerializer, OrderSerializer, OrderTrackingSerializer, ProductSerializer, AddToCartSerializer, CartCheckoutSerializer, RemoveFromCartSerializer, UpdateCartSerializer, ReviewSerializer, ProductImageSerializer, UserProfilePictureSerializer, FileUploadSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework.authentication import TokenAuthentication
-from rest_framework.permissions import IsAuthenticated
-from rest_framework.response import Response
-from rest_framework.views import APIView
 from .models import Product, Review, FileModel
 from django.http import FileResponse
+from rest_framework.views import APIView
 
-# Create your views here.
 
-
-    #user endpoints
 class UserRegistrationView(APIView):
-    authentication_classes = []
-    permission_classes = []
+    authentication_classes = []  # Allow unauthenticated requests
+    permission_classes = [AllowAny]
 
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        data = {}
+        serializer = RegistrationSerializer(data=request.data)
         if serializer.is_valid():
             user = serializer.save()
-            token = Token.objects.create(user=user)
-            return Response({'token': token.key})
+            user.is_active = True
+            user.save()
+            token = Token.objects.get_or_create(user=user)[0].key
+            data["message"] = "user registered successfully"
+            data["email"] = user.email
+            data["username"] = user.username
+            data["token"] = token
+            return Response(data, status=status.HTTP_201_CREATED)
+
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-class UserLogoutView(APIView):
-    authentication_classes = [TokenAuthentication]
-    permission_classes = [IsAuthenticated]
-
-    def post(self, request):
-        # Perform any additional logout logic if needed
-        request.user.auth_token.delete()
-        return Response(status=status.HTTP_200_OK)   
+ 
     
 class UserProfileView(APIView):
      authentication_classes = [TokenAuthentication]

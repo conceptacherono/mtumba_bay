@@ -1,15 +1,11 @@
 from django.urls import path
-from .views import UserRegistrationView, UserLogoutView, UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout, AddReview, RetrieveReviews, UpdateReview, DeleteReview, ProductImageUploadView, UserProfilePictureUploadView, FileUploadView, file_download_view
-
-from rest_framework.authtoken.views import obtain_auth_token
+from .views import UserRegistrationView,UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout, AddReview, RetrieveReviews, UpdateReview, DeleteReview, ProductImageUploadView, UserProfilePictureUploadView, FileUploadView, file_download_view
 
 app_name = 'mtumbay'
 
 urlpatterns = [
     #user endpoints
-    path('api/auth/register', UserRegistrationView.as_view(), name='register'),
-    path('api/auth/login', obtain_auth_token, name='login'),
-    path('api/auth/logout', UserLogoutView.as_view(), name='logout'),
+    path('api/auth/register/', UserRegistrationView.as_view(), name='user-registration'),
     path('api/auth/profile', UserProfileView.as_view(), name='profile'),
     
     #order enpoints
