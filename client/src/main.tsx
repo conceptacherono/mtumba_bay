@@ -4,6 +4,8 @@ import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  Cart,
+  ErrorPage,
   LandingPage,
   Login,
   ProductDetails,
@@ -18,6 +20,7 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
@@ -54,6 +57,10 @@ const router = createBrowserRouter([
             element: <ProductDetails />,
           },
         ],
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },
