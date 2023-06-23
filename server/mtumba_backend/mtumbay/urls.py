@@ -1,12 +1,15 @@
 from django.urls import path
-from .views import UserRegistrationView,UserProfileView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout, AddReview, RetrieveReviews, UpdateReview, DeleteReview, ProductImageUploadView, UserProfilePictureUploadView, FileUploadView, file_download_view
+from .views import UserRegister,UserLogin,  UserLogout, UserView, create_order, order_details, order_history, cancel_order, order_tracking, ProductListAPIView, ProductRetrieveAPIView, ProductSearchAPIView, ProductCreateUpdateAPIView, ProductDeleteAPIView, add_to_cart, update_cart, remove_from_cart, cart_checkout, AddReview, RetrieveReviews, UpdateReview, DeleteReview, ProductImageUploadView, UserProfilePictureUploadView, FileUploadView, file_download_view
 
 app_name = 'mtumbay'
 
 urlpatterns = [
     #user endpoints
-    path('api/auth/register/', UserRegistrationView.as_view(), name='user-registration'),
-    path('api/auth/profile', UserProfileView.as_view(), name='profile'),
+    path('api/auth/register/', UserRegister.as_view(), name='user-registration'),
+    path('api/auth/login/', UserLogin.as_view(), name='login'),
+	path('api/auth/logout', UserLogout.as_view(), name='logout'),
+	path('api/auth/user', UserView.as_view(), name='user'),
+    # path('api/auth/profile', UserProfileView.as_view(), name='profile'),
     
     #order enpoints
     path('api/orders/', create_order, name='create_order'),

@@ -26,9 +26,15 @@ SECRET_KEY = 'django-insecure-$bg5io-$$u3pd4p^+@d95(h+x$(tsy0z$-=pcw3z$i6pp7#vd-
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:3000',
+    'http://127.0.0.1',
+    'http://0.0.0.0',
+]
 
+CORS_ALLOW_CREDENTIALS = True
 
 # Application definition
 
@@ -55,6 +61,7 @@ REST_FRAMEWORK = {
 }
 
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -64,11 +71,6 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'corsheaders.middleware.CorsMiddleware',
-]
-
-CORS_ORIGIN_WHITELIST = [
-    'http://localhost:3000',
-    'https://mtumba-bay.netlify.app',
 ]
 
 ROOT_URLCONF = 'mtumba_backend.urls'
@@ -98,15 +100,16 @@ WSGI_APPLICATION = 'mtumba_backend.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'mtumbay',
-        'USER': 'mtumbay',
+        'NAME': 'mtumba_bay',
+        'USER': 'mtumba_bay',
         'PASSWORD': '1234',
         'HOST': 'localhost',
         'PORT': '5432',
 
     }
 }
-
+## User model
+AUTH_USER_MODEL = 'mtumbay.AppUser'
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
