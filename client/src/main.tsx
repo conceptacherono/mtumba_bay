@@ -8,8 +8,9 @@ import {
   Login,
   ProductDetails,
   Products,
-  SignUP,
   Register,
+  Logout,
+  User,
 } from "./components/index.ts";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
@@ -25,12 +26,8 @@ const router = createBrowserRouter([
         element: <LandingPage />,
       },
       {
-        path: "/auth",
+        path: "/",
         children: [
-          {
-            path: "signup",
-            element: <SignUP />,
-          },
           {
             path: "register",
             element: <Register />,
@@ -38,6 +35,14 @@ const router = createBrowserRouter([
           {
             path: "login",
             element: <Login />,
+          },
+          {
+            path: "logout",
+            element: <Logout/>,
+          },
+          {
+            path: "user",
+            element: <User/>
           },
         ],
       },
