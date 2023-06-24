@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import { getUserInfo } from "../../../api/auth";
 import axios from 'axios';
 
