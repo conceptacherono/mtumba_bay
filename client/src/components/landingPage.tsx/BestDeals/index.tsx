@@ -7,12 +7,16 @@ import {
 import Loader from "../../Loader";
 
 const BestDeals = () => {
+  const [activeCategory, setActiveCategory] = React.useState<string>("all");
+
   const { data, error, isLoading, isFetching, isSuccess } =
-    useGetProductsQuery();
+    useGetProductsQuery(activeCategory);
   const { data: categories, isLoading: loadingCategories } =
     useGetCategoriesQuery();
 
-  const [activeCategory, setActiveCategory] = React.useState<string>("all");
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+  };
 
   return (
     <section className="pt-16">
@@ -34,7 +38,7 @@ const BestDeals = () => {
               activeCategory === category &&
               "bg-darkGreen border-darkGreen text-white"
             }`}
-            onClick={() => setActiveCategory(category)}
+            onClick={() => handleCategoryChange(category)}
           >
             {category}
           </div>

@@ -15,3 +15,11 @@
 .grid-layout-listings {
   @apply grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4;
 }
+
+.cart-amount {
+  @apply flex justify-between items-center py-2;
+}
+
+.update-quantity-btn {
+  @apply text-2xl bg-primary disabled:bg-gray-500 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-gray-600 disabled:cursor-not-allowed;
+}
