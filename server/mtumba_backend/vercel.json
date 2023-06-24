@@ -1,0 +1,14 @@
+{
+    "builds": [
+      {
+        "src": "mtumba_backend/wsgi.py",
+        "use": "@vercel/python"
+      }
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "mtumba_backend/wsgi.py"
+      }
+    ]
+}

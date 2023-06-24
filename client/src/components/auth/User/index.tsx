@@ -1,5 +1,10 @@
 import React, {useState, useEffect} from 'react';
 import { getUserInfo } from "../../../api/auth";
+import axios from 'axios';
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
 
 interface User {
     email: string;
