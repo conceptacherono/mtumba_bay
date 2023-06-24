@@ -1,7 +1,13 @@
-import React, { useState } from 'react';
+import React, {useState} from 'react';
+import axios from 'axios';
 import { registerUser } from '../../../api/auth';
 
-const UserRegistrationView: React.FC = () => {
+
+axios.defaults.xsrfCookieName = 'csrftoken';
+axios.defaults.xsrfHeaderName = 'X-CSRFToken';
+axios.defaults.withCredentials = true;
+
+const Register: React.FC = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -39,4 +45,4 @@ const UserRegistrationView: React.FC = () => {
   );
 };
 
-export default UserRegistrationView;
+export default Register;
