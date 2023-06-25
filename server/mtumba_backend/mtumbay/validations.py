@@ -4,8 +4,8 @@ UserModel = get_user_model()
 
 def custom_validation(data):
     email = data.get('email', '').strip()
-    username = data.get['username'].strip()
-    password = data.get['password'].strip()
+    username = data.get('username','').strip()
+    password = data.get('password', '').strip()
     ##
     if not email or UserModel.objects.filter(email=email).exists():
         raise ValidationError('choose another email')
