@@ -3,7 +3,7 @@ from django.contrib.auth import get_user_model
 UserModel = get_user_model()
 
 def custom_validation(data):
-    email = data.get['email'].strip()
+    email = data.get('email', '').strip()
     username = data.get['username'].strip()
     password = data.get['password'].strip()
     ##
