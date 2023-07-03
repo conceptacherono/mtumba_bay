@@ -25,9 +25,9 @@
 }
 
 .form-error {
-  @apply text-xs italic text-red-500;
+  @apply text-sm italic text-red-500;
 }
 
 .input-field {
-  @apply bg-gray-50 border border-gray-200 text-gray-800 mb-4 text-sm rounded-lg block w-full p-2.5 border-gray-300 dark:placeholder-gray-400;
+  @apply bg-gray-50 border text-gray-800 mb-4 text-sm rounded-lg block w-full p-2.5 border-gray-300 dark:placeholder-gray-400;
 }
