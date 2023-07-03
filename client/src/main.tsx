@@ -28,27 +28,27 @@ const router = createBrowserRouter([
         index: true,
         element: <LandingPage />,
       },
-      {
-        path: "/",
-        children: [
-          {
-            path: "register",
-            element: <Register />,
-          },
-          {
-            path: "login",
-            element: <Login />,
-          },
-          {
-            path: "logout",
-            element: <Logout/>,
-          },
-          {
-            path: "user",
-            element: <User/>
-          },
-        ],
-      },
+      // {
+      //   path: "/",
+      //   children: [
+      //     {
+      //       path: "register",
+      //       element: <Register />,
+      //     },
+      //     {
+      //       path: "login",
+      //       element: <Login />,
+      //     },
+      //     {
+      //       path: "logout",
+      //       element: <Logout/>,
+      //     },
+      //     {
+      //       path: "user",
+      //       element: <User/>
+      //     },
+      //   ],
+      // },
       {
         path: "/products",
         children: [
@@ -63,11 +63,30 @@ const router = createBrowserRouter([
           },
         ],
       },
+
+      // todo:: update here
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
+      {
+        path: "/user",
+        element: <User />,
+      },
+      // todo:: to here
       {
         path: "/cart",
         element: <Cart />,
       },
     ],
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
   },
 ]);
 
