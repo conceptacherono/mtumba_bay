@@ -1,54 +1,148 @@
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Typography } from "@material-tailwind/react";
 import axios from "axios";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React from "react";
+import { SubmitHandler, useForm } from "react-hook-form";
+import { Link, useNavigate } from "react-router-dom";
+import { object, string } from "yup";
 import { loginUser } from "../../../api/auth";
+import { LoginUserData } from "../../../interfaces/user";
+import Loader from "../../Loader";
+import OAuthButtons from "../OAuthButtons";
+import Logo from "/logo.jpg";
+import RegisterImg from "/register.jpg";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const Login: React.FC = () => {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
+  const validationSchema = object().shape({
+    email: string()
+      .required("Email is required")
+      .email("Invalid email address"),
+    password: string()
+      .required("Password is required")
+      .min(6, "Password must be at least 6 characters")
+      .max(40, "Password must not exceed 40 characters"),
+  });
+
+  React.useEffect(() => {
+    const timeoutID = error
+      ? setTimeout(() => {
+          setError(false);
+        }, 5000)
+      : undefined;
+
+    return () => clearTimeout(timeoutID);
+  });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(validationSchema),
+  });
+
+  const onSubmit: SubmitHandler<LoginUserData> = async (data) => {
+    setLoading(true);
 
     try {
-      const userData = { email, password };
+      const userData = {
+        email: data.email,
+        password: data.password,
+      };
       const response = await loginUser(userData);
-      console.log("Login successful!", response);
-      // Add any success handling logic here, such as redirecting to another page
+      console.log("Registration successful!", response);
+      navigate("/");
+      // Add any success handling logic here, such as showing a success message or redirecting to another page
     } catch (error) {
-      console.error("Login failed!", error);
+      console.error("Registration failed!", error);
+      setError(true);
       // Add error handling logic here, such as displaying an error message
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <label>
-        Email:
-        <input
-          type="email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+    <div className="flex w-full h-screen overflow-hidden">
+      <div className="hidden md:flex flex-1 min-h-screen relative rounded-tr-[80px] overflow-hidden">
+        <img
+          src={RegisterImg}
+          alt="Register image"
+          className="h-full w-full object-cover"
         />
-      </label>
-      <label>
-        Password:
-        <input
-          type="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-      </label>
-      <button type="submit">Login</button>
+        <div
+          className="absolute top-0 right-0 w-full h-full flex  justify-center items-center
+             bg-gray-900/30 backdrop-brightness-75"
+        />{" "}
+      </div>
+      <div className="flex-1 h-screen w-full flex flex-col justify-center px-24">
+        <Link to={"/"} className="flex items-center gap-2 w-max h-min">
+          <img src={Logo} alt="app logo" className="h-12 rounded-full" />
+          <Typography className="mr-4 cursor-pointer py-1.5 font-stylish font-semibold text-lg text-gray-900">
+            Mtumba Bay
+          </Typography>
+        </Link>
+        <h1 className="bold text-2xl underline py-4">Welcome back</h1>
+        <OAuthButtons />
 
-      <p>
-        Dont have an account? <Link to={"/register"}>Register</Link>
-      </p>
-    </form>
+        <div className="flex items-center justify-center">
+          <h3 className="text-2xl text-gray-500 py-6">OR</h3>
+        </div>
+        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-2">
+          <div className="input-wrapper flex flex-col">
+            <label htmlFor="email">Email</label>
+            <input
+              type="email"
+              {...register("email")}
+              className="input-field"
+            />
+            {errors.email && (
+              <p className="form-error">{errors.email.message as string}</p>
+            )}
+          </div>
+
+          <div className="input-wrapper flex flex-col">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              {...register("password")}
+              className="input-field"
+            />
+            {errors.password && (
+              <p className="form-error">{errors.password.message as string}</p>
+            )}
+          </div>
+
+          {error && <div className="form-error">Something went wrong</div>}
+          <div className="input-wrapper">
+            <button
+              type="submit"
+              className="focus:shadow-outline flex items-center justify-center gap-4 rounded bg-primary py-4 mt-6 w-full text-xl text-white hover:bg-black focus:outline-none"
+            >
+              {loading ? "Processing..." : "Login"}
+              {loading && <Loader size={6} />}
+            </button>
+          </div>
+        </form>
+
+        <div className="flex justify-center mt-6">
+          <p>
+            Don&apos;t have an account?{" "}
+            <span className="text-blue-500 border-b border-blue-600 hover:text-blue-600">
+              <Link to={"/register"}>Create account</Link>
+            </span>
+          </p>
+        </div>
+      </div>
+    </div>
   );
 };
 
