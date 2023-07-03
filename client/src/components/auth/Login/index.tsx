@@ -91,7 +91,7 @@ const Login: React.FC = () => {
           </Typography>
         </Link>
         <h1 className="bold text-2xl underline py-4">Welcome back</h1>
-        <OAuthButtons />
+        <OAuthButtons isLogin={true} />
 
         <div className="flex items-center justify-center">
           <h3 className="text-2xl text-gray-500 py-6">OR</h3>
