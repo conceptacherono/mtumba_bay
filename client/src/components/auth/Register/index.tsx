@@ -3,19 +3,24 @@ import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import { bool, object, ref, string } from "yup";
 import { registerUser } from "../../../api/auth";
 import { RegisterUserData } from "../../../interfaces/user";
 import OAuthButtons from "../OAuthButtons";
 import Logo from "/logo.jpg";
 import RegisterImg from "/register.jpg";
+import Loader from "../../Loader";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 axios.defaults.withCredentials = true;
 
 const Register: React.FC = () => {
+  const [error, setError] = React.useState(false);
+  const [loading, setLoading] = React.useState(false);
+  const navigate = useNavigate();
+
   const validationSchema = object().shape({
     username: string()
       .required("Username is required")
@@ -37,6 +42,16 @@ const Register: React.FC = () => {
     ),
   });
 
+  React.useEffect(() => {
+    const timeoutID = error
+      ? setTimeout(() => {
+          setError(false);
+        }, 5000)
+      : undefined;
+
+    return () => clearTimeout(timeoutID);
+  });
+
   const {
     register,
     handleSubmit,
@@ -46,6 +61,8 @@ const Register: React.FC = () => {
   });
 
   const onSubmit: SubmitHandler<RegisterUserData> = async (data) => {
+    setLoading(true);
+
     try {
       const userData = {
         username: data.username,
@@ -54,16 +71,20 @@ const Register: React.FC = () => {
       };
       const response = await registerUser(userData);
       console.log("Registration successful!", response);
+      navigate("/");
       // Add any success handling logic here, such as showing a success message or redirecting to another page
     } catch (error) {
       console.error("Registration failed!", error);
+      setError(true);
       // Add error handling logic here, such as displaying an error message
+    } finally {
+      setLoading(false);
     }
   };
 
   return (
     <div className="flex w-full h-screen overflow-hidden">
-      <div className="hidden md:flex-1 min-h-screen relative rounded-tr-[80px] overflow-hidden">
+      <div className="hidden md:flex flex-1 min-h-screen relative rounded-tr-[80px] overflow-hidden">
         <img
           src={RegisterImg}
           alt="Register image"
@@ -149,15 +170,25 @@ const Register: React.FC = () => {
           </div>
           <div className="form-error">{errors.acceptTerms?.message}</div>
 
+          {error && <div className="form-error">Something went wrong</div>}
           <div className="input-wrapper">
             <button
               type="submit"
-              className="focus:shadow-outline rounded bg-primary py-4 mt-6 w-full text-xl text-white hover:bg-black focus:outline-none"
+              className="focus:shadow-outline flex items-center justify-center gap-4 rounded bg-primary py-4 mt-6 w-full text-xl text-white hover:bg-black focus:outline-none"
             >
-              Submit
+              {loading ? "Processing..." : "Submit"}
+              {loading && <Loader size={6} />}
             </button>
           </div>
         </form>
+        <div className="flex justify-center mt-6">
+          <p>
+            Already have an account?{" "}
+            <span className="text-blue-500 border-b border-blue-600 hover:text-blue-600">
+              <Link to={"/login"}>Login</Link>
+            </span>
+          </p>
+        </div>
       </div>
     </div>
   );
