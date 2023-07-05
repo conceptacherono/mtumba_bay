@@ -3,14 +3,14 @@ import { Typography } from "@material-tailwind/react";
 import axios from "axios";
 import React from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Link, Navigate, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { bool, object, ref, string } from "yup";
 import { registerUser } from "../../../api/auth";
 import { RegisterUserData } from "../../../interfaces/user";
+import Loader from "../../Loader";
 import OAuthButtons from "../OAuthButtons";
 import Logo from "/logo.jpg";
 import RegisterImg from "/register.jpg";
-import Loader from "../../Loader";
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";

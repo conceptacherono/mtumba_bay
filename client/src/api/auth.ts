@@ -1,7 +1,7 @@
 import axios, { AxiosError } from "axios";
 import { LoginUserData, RegisterUserData } from "../interfaces/user";
 
-const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
+export const API_BASE_URL = `${import.meta.env.VITE_API_BASE_URL}/api`;
 
 export const registerUser = async (userData: RegisterUserData) => {
   try {
@@ -21,8 +21,10 @@ export const loginUser = async (userData: LoginUserData) => {
       `${API_BASE_URL}/api/auth/login/`,
       userData
     );
+    console.log({ response });
     return response.data;
   } catch (error: unknown) {
+    console.log({ error });
     throw new Error(error instanceof AxiosError ? error.message : "");
   }
 };
