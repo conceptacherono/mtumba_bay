@@ -76,7 +76,6 @@ export default function TopNavBar() {
       </button>
 
       <div
-        // ref={menuRef}
         className={`${
           openUserMenu ? "absolute" : "hidden"
         } right-0 z-50 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none`}
@@ -93,7 +92,7 @@ export default function TopNavBar() {
             tabIndex={-1}
             id="menu-item-0"
           >
-            Account settings
+            Profile
           </a>
           <a
             href="#"
@@ -102,16 +101,7 @@ export default function TopNavBar() {
             tabIndex={-1}
             id="menu-item-1"
           >
-            Support
-          </a>
-          <a
-            href="#"
-            className="text-gray-700 block px-4 py-2 text-sm"
-            role="menuitem"
-            tabIndex={-1}
-            id="menu-item-2"
-          >
-            License
+            Contact
           </a>
           <button
             type="button"
@@ -159,7 +149,7 @@ export default function TopNavBar() {
             <div className="mr-4 hidden lg:block">{navList}</div>
             {/* Todo:: UPDATE THIS TO ONLY SHOW IF A USER IS LOGGED IN */}
             {/* cart icon and items quantity display */}
-            <Link to={"/cart"} className="relative cursor-pointer">
+            <Link to={"/cart"} className="relative cursor-pointer mr-5">
               <BsCart size={24} className="text-primary hover:text-brown" />
               {cart.length > 0 && (
                 <div className="absolute bottom-3 left-4 bg-primary p-1 h-5 w-5 rounded-full flex items-center justify-center">
