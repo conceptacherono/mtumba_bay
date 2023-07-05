@@ -23,3 +23,11 @@
 .update-quantity-btn {
   @apply text-2xl bg-primary disabled:bg-gray-500 w-8 h-8 rounded-full flex items-center justify-center text-white hover:bg-gray-600 disabled:cursor-not-allowed;
 }
+
+.form-error {
+  @apply text-sm italic text-red-500;
+}
+
+.input-field {
+  @apply bg-gray-50 border text-gray-800 mb-4 text-sm rounded-lg block w-full p-2.5 border-gray-300 dark:placeholder-gray-400;
+}

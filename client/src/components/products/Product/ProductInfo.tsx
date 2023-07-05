@@ -137,7 +137,7 @@ const ProductInfo = ({ product }: Props) => {
       <div className="md:mt-16">
         <h3 className="text-xl font-bold">Related Products:</h3>
         {isLoading ? (
-          <Loader />
+          <Loader size={6} />
         ) : relatedProducts && relatedProducts.length > 0 ? (
           <div className="grid-layout-listings gap-6 mt-2">
             {relatedProducts.map(

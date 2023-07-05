@@ -44,7 +44,7 @@ const BestDeals = () => {
           </div>
         ))}
       </div>
-      {(isLoading || loadingCategories || isFetching) && <Loader />}
+      {(isLoading || loadingCategories || isFetching) && <Loader size={6} />}
       {error && <h2>Something went wrong </h2>}
       {isSuccess && (
         <div className="grid-layout-listings gap-6 mt-4">
