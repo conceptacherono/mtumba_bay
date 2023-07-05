@@ -53,7 +53,7 @@ export default function TopNavBar() {
           </Link>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
-            <Link to={"/login"}>
+            <Link to={"/auth/login"}>
               <Button
                 variant="gradient"
                 size="sm"

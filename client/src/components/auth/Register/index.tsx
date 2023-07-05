@@ -186,7 +186,7 @@ const Register: React.FC = () => {
           <p>
             Already have an account?{" "}
             <span className="text-blue-500 border-b border-blue-600 hover:text-blue-600">
-              <Link to={"/login"}>Login</Link>
+              <Link to={"/auth/login"}>Login</Link>
             </span>
           </p>
         </div>

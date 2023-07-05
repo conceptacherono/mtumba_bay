@@ -81,12 +81,18 @@ const router = createBrowserRouter([
     ],
   },
   {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
+    path: "/auth",
+    children: [
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        index: true,
+        element: <Login />,
+      },
+    ],
   },
 ]);
 

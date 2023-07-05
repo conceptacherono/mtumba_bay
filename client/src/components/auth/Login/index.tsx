@@ -137,7 +137,7 @@ const Login: React.FC = () => {
           <p>
             Don&apos;t have an account?{" "}
             <span className="text-blue-500 border-b border-blue-600 hover:text-blue-600">
-              <Link to={"/register"}>Create account</Link>
+              <Link to={"/auth/register"}>Create account</Link>
             </span>
           </p>
         </div>
