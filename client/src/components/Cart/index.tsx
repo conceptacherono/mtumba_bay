@@ -4,7 +4,6 @@ import CartContainer from "./CartContainer";
 
 const Cart = () => {
   const cartItems = useSelector((state: RootState) => state.product.cart);
-  console.log(cartItems);
   return (
     <div>
       <h1 className="text-3xl font-bold py-4">Your Cart</h1>

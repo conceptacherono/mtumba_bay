@@ -58,11 +58,13 @@ const Login: React.FC = () => {
         password: data.password,
       };
       const response = await loginUser(userData);
-      console.log("Registration successful!", response);
+
+      // Todo: Update this to session
+      localStorage.setItem("user", JSON.stringify(response));
       navigate("/");
       // Add any success handling logic here, such as showing a success message or redirecting to another page
     } catch (error) {
-      console.error("Registration failed!", error);
+      console.error("Login failed!", error);
       setError(true);
       // Add error handling logic here, such as displaying an error message
     } finally {

@@ -71,6 +71,10 @@ const Register: React.FC = () => {
       };
       const response = await registerUser(userData);
       console.log("Registration successful!", response);
+      // Todo:: Update this to session storage
+      //! Avoid storing this in local storage
+      localStorage.setItem("user", JSON.stringify(response));
+
       navigate("/");
       // Add any success handling logic here, such as showing a success message or redirecting to another page
     } catch (error) {

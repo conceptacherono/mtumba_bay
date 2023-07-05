@@ -21,10 +21,10 @@ export const loginUser = async (userData: LoginUserData) => {
       `${API_BASE_URL}/api/auth/login/`,
       userData
     );
-    console.log({ response });
+    // console.log({ response });
     return response.data;
   } catch (error: unknown) {
-    console.log({ error });
+    // console.log({ error });
     throw new Error(error instanceof AxiosError ? error.message : "");
   }
 };

@@ -11,6 +11,7 @@ import {
 } from "../../../store/features/ProductSlice";
 import useFindProductInCart from "../../../hooks/useFindProductInCart";
 import { RootState } from "../../../store/store";
+import { useParams } from "react-router-dom";
 
 type Props = {
   product: ProductType;
@@ -18,7 +19,8 @@ type Props = {
 
 const ProductInfo = ({ product }: Props) => {
   const [selectedSize, setselectedSize] = React.useState<string>(sizes[0]);
-  const [quantity, setquantity] = React.useState<number>(1);
+  const { id } = useParams();
+  const [quantity, setQuantity] = React.useState<number>(1);
   const [updateCart, setUpdateCart] = React.useState<boolean>(false);
   const [relatedProducts, setRelatedProducts] = React.useState<ProductType[]>(
     []
@@ -28,7 +30,7 @@ const ProductInfo = ({ product }: Props) => {
   const cartProducts = useSelector((state: RootState) => state.product.cart);
   const { isInCart, cartQuantity } = useFindProductInCart({
     array: cartProducts,
-    productId: product.id,
+    productId: parseInt(id as string),
   });
 
   const handleAddToCart = () => {
@@ -50,7 +52,14 @@ const ProductInfo = ({ product }: Props) => {
     if (data) {
       setRelatedProducts(data);
     }
-  }, [product, data, refetch]);
+
+    if (isInCart) {
+      setQuantity(
+        cartProducts.find((product) => product.id === parseInt(id as string))
+          ?.quantity ?? 1
+      );
+    }
+  }, [product, isInCart, cartProducts, id, data, refetch]);
 
   return (
     <section>
@@ -105,7 +114,7 @@ const ProductInfo = ({ product }: Props) => {
                   className="py-4 px-8 text-2xl leading-0 disabled:cursor-not-allowed"
                   disabled={quantity === 1}
                   onClick={() =>
-                    quantity > 1 && setquantity((quantity) => quantity - 1)
+                    quantity > 1 && setQuantity((quantity) => quantity - 1)
                   }
                 >
                   -
@@ -114,7 +123,7 @@ const ProductInfo = ({ product }: Props) => {
                 <button
                   className="py-4 px-8 text-2xl leading-0"
                   onClick={() => {
-                    setquantity((quantity) => quantity + 1);
+                    setQuantity((quantity) => quantity + 1);
                     isInCart && setUpdateCart(true);
                   }}
                 >
