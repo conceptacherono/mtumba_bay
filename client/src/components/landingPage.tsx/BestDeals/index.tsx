@@ -7,12 +7,16 @@ import {
 import Loader from "../../Loader";
 
 const BestDeals = () => {
+  const [activeCategory, setActiveCategory] = React.useState<string>("all");
+
   const { data, error, isLoading, isFetching, isSuccess } =
-    useGetProductsQuery();
+    useGetProductsQuery(activeCategory);
   const { data: categories, isLoading: loadingCategories } =
     useGetCategoriesQuery();
 
-  const [activeCategory, setActiveCategory] = React.useState<string>("all");
+  const handleCategoryChange = (category: string) => {
+    setActiveCategory(category);
+  };
 
   return (
     <section className="pt-16">
@@ -34,13 +38,13 @@ const BestDeals = () => {
               activeCategory === category &&
               "bg-darkGreen border-darkGreen text-white"
             }`}
-            onClick={() => setActiveCategory(category)}
+            onClick={() => handleCategoryChange(category)}
           >
             {category}
           </div>
         ))}
       </div>
-      {(isLoading || loadingCategories || isFetching) && <Loader />}
+      {(isLoading || loadingCategories || isFetching) && <Loader size={6} />}
       {error && <h2>Something went wrong </h2>}
       {isSuccess && (
         <div className="grid-layout-listings gap-6 mt-4">

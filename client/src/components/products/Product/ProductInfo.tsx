@@ -1,8 +1,16 @@
 import React from "react";
 import { ProductType } from "../../../interfaces/Product";
-import { useGetProductsByCategoryQuery } from "../../../services/productsApi";
 import Loader from "../../Loader";
 import ProductCard from "../../../lib/ui/ProductCard";
+
+import { useGetProductsQuery } from "../../../services/productsApi";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProductToCart,
+  updateCartProducts,
+} from "../../../store/features/ProductSlice";
+import useFindProductInCart from "../../../hooks/useFindProductInCart";
+import { RootState } from "../../../store/store";
 
 type Props = {
   product: ProductType;
@@ -11,13 +19,30 @@ type Props = {
 const ProductInfo = ({ product }: Props) => {
   const [selectedSize, setselectedSize] = React.useState<string>(sizes[0]);
   const [quantity, setquantity] = React.useState<number>(1);
+  const [updateCart, setUpdateCart] = React.useState<boolean>(false);
   const [relatedProducts, setRelatedProducts] = React.useState<ProductType[]>(
     []
   );
+  const { data, isLoading, refetch } = useGetProductsQuery(product.category);
+  const dispatch = useDispatch();
+  const cartProducts = useSelector((state: RootState) => state.product.cart);
+  const { isInCart, cartQuantity } = useFindProductInCart({
+    array: cartProducts,
+    productId: product.id,
+  });
 
-  const { data, isLoading, refetch } = useGetProductsByCategoryQuery(
-    product.category
-  );
+  const handleAddToCart = () => {
+    dispatch(addProductToCart({ ...product, quantity: quantity }));
+  };
+
+  const handleUpdateCart = () => {
+    dispatch(
+      updateCartProducts({
+        ...product,
+        quantity: quantity,
+      })
+    );
+  };
 
   React.useEffect(() => {
     refetch();
@@ -64,8 +89,13 @@ const ProductInfo = ({ product }: Props) => {
               <p className="py-2 text-gray-500">
                 Height of model: 189 cm. / 6' 2″ Size 41
               </p>
-              <button className="lg:w-full w-full  py-4 transition-all bg-lightGreen text-white text-lg font-semibold hover:bg-darkGreen">
-                Add to cart - Ksh. {Math.round(product.price * quantity)}
+              <button
+                className={`lg:w-full w-full disabled:cursor-not-allowed disabled:bg-darkGreen py-4 transition-all bg-lightGreen text-white text-lg font-semibold hover:bg-darkGreen`}
+                onClick={handleAddToCart}
+                disabled={isInCart}
+              >
+                {isInCart ? "In cart" : "Add to cart"} - Ksh.{" "}
+                {Math.round(product.price * quantity)}
               </button>
             </div>
             <div className="lg:flex-1">
@@ -83,20 +113,31 @@ const ProductInfo = ({ product }: Props) => {
                 <span className="text-2xl font-semibold w-5">{quantity}</span>
                 <button
                   className="py-4 px-8 text-2xl leading-0"
-                  onClick={() => setquantity((quantity) => quantity + 1)}
+                  onClick={() => {
+                    setquantity((quantity) => quantity + 1);
+                    isInCart && setUpdateCart(true);
+                  }}
                 >
                   +
                 </button>
               </div>
             </div>
           </div>
+          {updateCart && quantity !== cartQuantity && (
+            <button
+              className="bg-brown text-white rounded-md p-4 mt-2"
+              onClick={handleUpdateCart}
+            >
+              Update cart quantity
+            </button>
+          )}
         </div>
       </div>
 
       <div className="md:mt-16">
         <h3 className="text-xl font-bold">Related Products:</h3>
         {isLoading ? (
-          <Loader />
+          <Loader size={6} />
         ) : relatedProducts && relatedProducts.length > 0 ? (
           <div className="grid-layout-listings gap-6 mt-2">
             {relatedProducts.map(

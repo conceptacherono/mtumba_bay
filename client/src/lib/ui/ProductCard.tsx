@@ -1,7 +1,12 @@
 import { Link } from "react-router-dom";
 import { ProductType } from "../../interfaces/Product";
-import { useDispatch } from "react-redux";
-import { addProductToCart } from "../../store/features/ProductSlice";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  addProductToCart,
+  // removeProductFromCart,
+} from "../../store/features/ProductSlice";
+import { RootState } from "../../store/store";
+import useFindProductInCart from "../../hooks/useFindProductInCart";
 
 interface ProductCardProps {
   product: ProductType;
@@ -9,10 +14,20 @@ interface ProductCardProps {
 
 const ProductCard = ({ product }: ProductCardProps) => {
   const dispatch = useDispatch();
+  const cartProducts = useSelector((state: RootState) => state.product.cart);
+
+  const { isInCart } = useFindProductInCart({
+    array: cartProducts,
+    productId: product.id,
+  });
 
   const handleAddToCart = () => {
-    dispatch(addProductToCart(product));
+    dispatch(addProductToCart({ ...product, quantity: 1 }));
   };
+
+  // const handleRemoveFromCart = () => {
+  //   dispatch(removeProductFromCart(product));
+  // };
 
   return (
     <div className="flex flex-col">
@@ -24,7 +39,7 @@ const ProductCard = ({ product }: ProductCardProps) => {
           <img
             src={product.image}
             alt={product.title}
-            className=" h-full object-contain transition hover:scale-105"
+            className="h-full object-contain transition hover:scale-105"
           />
           {/* <div className="absolute top-0 left-0 w-full h-0 flex flex-col justify-center items-center bg-opacity-20 opacity-0 group-hover:h-full group-hover:opacity-100 duration-300">
           <Link
@@ -46,11 +61,14 @@ const ProductCard = ({ product }: ProductCardProps) => {
         </div>
       </Link>
       <button
-        className="px-6 w-fit py-2 border my-4 rounded-full font-semibold border-black transition-colors hover:bg-darkGreen hover:text-white hover:border-darkGreen"
+        className={`px-6 w-fit py-2 border my-4 rounded-full font-semibold ${
+          isInCart && "bg-darkGreen text-white"
+        } border-black transition-colors hover:bg-darkGreen hover:text-white hover:border-darkGreen disabled:cursor-not-allowed`}
+        // onClick={isInCart ? handleRemoveFromCart : handleAddToCart}
         onClick={handleAddToCart}
+        disabled={isInCart}
       >
-        {/* {isInCart ? "Remove from cart" : "Add to cart"} */}
-        Add to cart
+        {isInCart ? "In cart" : "Add to cart"}
       </button>
     </div>
   );

@@ -4,11 +4,15 @@ import App from "./App.tsx";
 import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import {
+  Cart,
+  ErrorPage,
   LandingPage,
   Login,
   ProductDetails,
   Products,
-  SignUP,
+  Register,
+  Logout,
+  User,
 } from "./components/index.ts";
 import { Provider } from "react-redux";
 import { store } from "./store/store.ts";
@@ -17,25 +21,34 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
+    errorElement: <ErrorPage />,
     children: [
       {
         path: "",
         index: true,
         element: <LandingPage />,
       },
-      {
-        path: "/auth",
-        children: [
-          {
-            path: "signup",
-            element: <SignUP />,
-          },
-          {
-            path: "login",
-            element: <Login />,
-          },
-        ],
-      },
+      // {
+      //   path: "/",
+      //   children: [
+      //     {
+      //       path: "register",
+      //       element: <Register />,
+      //     },
+      //     {
+      //       path: "login",
+      //       element: <Login />,
+      //     },
+      //     {
+      //       path: "logout",
+      //       element: <Logout/>,
+      //     },
+      //     {
+      //       path: "user",
+      //       element: <User/>
+      //     },
+      //   ],
+      // },
       {
         path: "/products",
         children: [
@@ -49,6 +62,35 @@ const router = createBrowserRouter([
             element: <ProductDetails />,
           },
         ],
+      },
+
+      // todo:: update here
+      {
+        path: "/logout",
+        element: <Logout />,
+      },
+      {
+        path: "/user",
+        element: <User />,
+      },
+      // todo:: to here
+      {
+        path: "/cart",
+        element: <Cart />,
+      },
+    ],
+  },
+  {
+    path: "/auth",
+    children: [
+      {
+        path: "register",
+        element: <Register />,
+      },
+      {
+        path: "login",
+        index: true,
+        element: <Login />,
       },
     ],
   },

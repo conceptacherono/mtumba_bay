@@ -10,7 +10,7 @@ const ProductDetails = () => {
   return (
     <div className="w-full flex items-center justify-center">
       {isLoading ? (
-        <Loader />
+        <Loader size={6} />
       ) : product ? (
         <ProductInfo product={product} />
       ) : (
